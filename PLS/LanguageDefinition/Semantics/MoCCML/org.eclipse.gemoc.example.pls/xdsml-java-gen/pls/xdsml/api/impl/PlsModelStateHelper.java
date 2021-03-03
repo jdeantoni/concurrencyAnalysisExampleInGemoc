@@ -75,7 +75,7 @@ public class PlsModelStateHelper implements IK3ModelStateHelper{
 					for(Class<?> c : n2v.value.getClass().getInterfaces()) {
 						
 						try {
-							m = PlsRTDAccessor.class.getMethod("set"+n2v.name, EObject.class, n2v.value.getClass().getInterfaces()[0]);
+							m = PlsRTDAccessor.class.getMethod("set"+n2v.name, EObject.class, c);
 							m.invoke(null, elemState.getModelElement(), n2v.value);
 						} catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e1) {
 						}
