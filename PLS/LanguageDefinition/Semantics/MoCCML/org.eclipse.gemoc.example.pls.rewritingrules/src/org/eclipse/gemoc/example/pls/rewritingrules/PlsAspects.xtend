@@ -3,7 +3,6 @@ package org.eclipse.gemoc.example.pls.rewritingrules;
 import fr.inria.diverse.k3.al.annotationprocessor.Aspect
 import uk.ac.kcl.inf.modelling.pls.pls.Conveyor
 import fr.inria.diverse.k3.al.annotationprocessor.Step
-import uk.ac.kcl.inf.modelling.pls.pls.Machine
 import uk.ac.kcl.inf.modelling.pls.pls.PLSFactory
 import uk.ac.kcl.inf.modelling.pls.pls.GenHandle
 import uk.ac.kcl.inf.modelling.pls.pls.GenHead
@@ -18,7 +17,6 @@ import java.util.ArrayList
 
 import static extension org.eclipse.gemoc.example.pls.rewritingrules.ContainerAspect.*
 import fr.inria.diverse.k3.al.annotationprocessor.InitializeModel
-import uk.ac.kcl.inf.modelling.pls.pls.Tray
 
 @Aspect(className=Container)
 class ContainerAspect{
