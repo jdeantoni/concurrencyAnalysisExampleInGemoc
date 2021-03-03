@@ -4,7 +4,7 @@
     <semanticResources>basic.pls</semanticResources>
     <ownedViews xmi:type="viewpoint:DView" uid="__U6ukHxCEeuo0IzrFKNBJg">
       <viewpoint xmi:type="description:Viewpoint" href="platform:/plugin/uk.ac.kcl.inf.modelling.pls.design/description/pls.odesign#//@ownedViewpoints[name='Production%20Line%20Systems']"/>
-      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="__U_nEHxCEeuo0IzrFKNBJg" name="Production Line Diagram" repPath="#__U8jwHxCEeuo0IzrFKNBJg" changeId="f11ca9ad-b93d-418e-892d-d0f0b04b3cf1">
+      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="__U_nEHxCEeuo0IzrFKNBJg" name="Production Line Diagram" repPath="#__U8jwHxCEeuo0IzrFKNBJg" changeId="f69e922f-f8fe-4f23-a3bb-9dc2da5a9448">
         <description xmi:type="description_1:DiagramDescription" href="platform:/plugin/uk.ac.kcl.inf.modelling.pls.design/description/pls.odesign#//@ownedViewpoints[name='Production%20Line%20Systems']/@ownedRepresentations[name='Production%20Line%20Diagram']"/>
         <target xmi:type="pls:ProductionLineModel" href="basic.pls#/"/>
       </ownedRepresentationDescriptors>
@@ -22,7 +22,7 @@
             <layoutConstraint xmi:type="notation:Bounds" xmi:id="__fzv8nxCEeuo0IzrFKNBJg"/>
           </children>
           <styles xmi:type="notation:ShapeStyle" xmi:id="__fj4UXxCEeuo0IzrFKNBJg" fontName="Noto Sans" fontHeight="8"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="__fj4UnxCEeuo0IzrFKNBJg" x="20" y="123" width="75" height="69"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="__fj4UnxCEeuo0IzrFKNBJg" x="20" y="153" width="75" height="69"/>
         </children>
         <children xmi:type="notation:Node" xmi:id="__fuQYHxCEeuo0IzrFKNBJg" type="2001" element="__VevQXxCEeuo0IzrFKNBJg">
           <children xmi:type="notation:Node" xmi:id="__fu3cHxCEeuo0IzrFKNBJg" type="5002">
@@ -106,20 +106,20 @@
         </edges>
         <edges xmi:type="notation:Edge" xmi:id="__f7EsnxCEeuo0IzrFKNBJg" type="4001" element="__fcjkHxCEeuo0IzrFKNBJg" source="__fj4UHxCEeuo0IzrFKNBJg" target="__fwFkHxCEeuo0IzrFKNBJg">
           <children xmi:type="notation:Node" xmi:id="__f7EtnxCEeuo0IzrFKNBJg" type="6001">
-            <layoutConstraint xmi:type="notation:Bounds" xmi:id="__f7Et3xCEeuo0IzrFKNBJg" y="-10"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="__f7Et3xCEeuo0IzrFKNBJg" x="-2" y="-7"/>
           </children>
           <children xmi:type="notation:Node" xmi:id="__f7EuHxCEeuo0IzrFKNBJg" type="6002">
-            <layoutConstraint xmi:type="notation:Bounds" xmi:id="__f7EuXxCEeuo0IzrFKNBJg" y="10"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="__f7EuXxCEeuo0IzrFKNBJg" x="-2" y="5"/>
           </children>
           <children xmi:type="notation:Node" xmi:id="__f7EunxCEeuo0IzrFKNBJg" type="6003">
-            <layoutConstraint xmi:type="notation:Bounds" xmi:id="__f7Eu3xCEeuo0IzrFKNBJg" y="10"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="__f7Eu3xCEeuo0IzrFKNBJg" x="-2" y="5"/>
           </children>
           <styles xmi:type="notation:ConnectorStyle" xmi:id="__f7Es3xCEeuo0IzrFKNBJg"/>
           <styles xmi:type="notation:FontStyle" xmi:id="__f7EtHxCEeuo0IzrFKNBJg" fontName="Noto Sans" fontHeight="8"/>
           <styles xmi:type="notation:StringValueStyle" xmi:id="__mgN0XxCEeuo0IzrFKNBJg" name="junctionPoints" stringValue="()"/>
-          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="__f7EtXxCEeuo0IzrFKNBJg" points="[0, 0, -26, 0]$[26, 0, 0, 0]"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="__f7EtXxCEeuo0IzrFKNBJg" points="[-1, -4, -28, 0]$[26, -4, -1, 0]"/>
           <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="__f7rwHxCEeuo0IzrFKNBJg" id="(1.0,0.5)"/>
-          <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="__f7rwXxCEeuo0IzrFKNBJg" id="(0.0,0.2535211267605634)"/>
+          <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="__f7rwXxCEeuo0IzrFKNBJg" id="(0.008771929824561403,0.5211267605633803)"/>
         </edges>
         <edges xmi:type="notation:Edge" xmi:id="__f7rwnxCEeuo0IzrFKNBJg" type="4001" element="__fdKonxCEeuo0IzrFKNBJg" source="__fuQYHxCEeuo0IzrFKNBJg" target="__fx6wHxCEeuo0IzrFKNBJg">
           <children xmi:type="notation:Node" xmi:id="__f7rxnxCEeuo0IzrFKNBJg" type="6001">
@@ -193,20 +193,23 @@
     </ownedAnnotationEntries>
     <ownedAnnotationEntries xmi:type="description:AnnotationEntry" uid="__b_m8HxCEeuo0IzrFKNBJg" source="DANNOTATION_CUSTOMIZATION_KEY">
       <data xmi:type="diagram:ComputedStyleDescriptionRegistry" uid="__b_m8XxCEeuo0IzrFKNBJg">
-        <computedStyleDescriptions xmi:type="style:WorkspaceImageDescription" xmi:id="__b_m8nxCEeuo0IzrFKNBJg" borderLineStyle="dot" showIcon="false" labelExpression="[self.getCurrentParts()->size()+ self.parts->size()/]" workspacePath="/uk.ac.kcl.inf.modelling.pls.design/icons/Conveyor.png">
-          <borderColor xmi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
-          <labelColor xmi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
-        </computedStyleDescriptions>
         <computedStyleDescriptions xmi:type="style:WorkspaceImageDescription" xmi:id="__e3UwHxCEeuo0IzrFKNBJg" showIcon="false" labelExpression="[self.getCurrentParts()->size()+ self.parts->size()/]" workspacePath="/uk.ac.kcl.inf.modelling.pls.design/icons/Tray.png">
           <borderColor xmi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
           <labelFormat>bold</labelFormat>
           <labelColor xmi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
+        </computedStyleDescriptions>
+        <computedStyleDescriptions xmi:type="style:WorkspaceImageDescription" xmi:id="_L4PUIHxiEeu1Q_4BkbxKjw" showIcon="false" labelExpression="[self.getCurrentParts()->size()+ self.parts->size()/]" workspacePath="/uk.ac.kcl.inf.modelling.pls.design/icons/Conveyor.png">
+          <borderColor xmi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+          <labelColor xmi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
         </computedStyleDescriptions>
       </data>
     </ownedAnnotationEntries>
     <ownedDiagramElements xmi:type="diagram:DNode" uid="__VHi4HxCEeuo0IzrFKNBJg" name="handleGenerator" outgoingEdges="__fcjkHxCEeuo0IzrFKNBJg" width="-1" height="-1" resizeKind="NSEW">
       <target xmi:type="pls:GenHandle" href="basic.pls#//@elements.0"/>
       <semanticElements xmi:type="pls:GenHandle" href="basic.pls#//@elements.0"/>
+      <arrangeConstraints>KEEP_LOCATION</arrangeConstraints>
+      <arrangeConstraints>KEEP_SIZE</arrangeConstraints>
+      <arrangeConstraints>KEEP_RATIO</arrangeConstraints>
       <ownedStyle xmi:type="diagram:WorkspaceImage" uid="__VSiAHxCEeuo0IzrFKNBJg" showIcon="false" workspacePath="/uk.ac.kcl.inf.modelling.pls.design/icons/GenHandle.png">
         <description xmi:type="style:WorkspaceImageDescription" href="platform:/plugin/uk.ac.kcl.inf.modelling.pls.design/description/pls.odesign#//@ownedViewpoints[name='Production%20Line%20Systems']/@ownedRepresentations[name='Production%20Line%20Diagram']/@defaultLayer/@nodeMappings[name='GenHandle']/@style"/>
       </ownedStyle>
@@ -234,7 +237,7 @@
     <ownedDiagramElements xmi:type="diagram:DNodeList" uid="__VgkcXxCEeuo0IzrFKNBJg" name="1" outgoingEdges="__ffm4nxCEeuo0IzrFKNBJg" incomingEdges="__fcjkHxCEeuo0IzrFKNBJg">
       <target xmi:type="pls:Conveyor" href="basic.pls#//@elements.3"/>
       <semanticElements xmi:type="pls:Conveyor" href="basic.pls#//@elements.3"/>
-      <ownedStyle xmi:type="diagram:WorkspaceImage" uid="__cO3gHxCEeuo0IzrFKNBJg" showIcon="false" description="__b_m8nxCEeuo0IzrFKNBJg" borderLineStyle="dot" workspacePath="/uk.ac.kcl.inf.modelling.pls.design/icons/Conveyor.png"/>
+      <ownedStyle xmi:type="diagram:WorkspaceImage" uid="_L4QiQXxiEeu1Q_4BkbxKjw" showIcon="false" description="_L4PUIHxiEeu1Q_4BkbxKjw" workspacePath="/uk.ac.kcl.inf.modelling.pls.design/icons/Conveyor.png"/>
       <actualMapping xmi:type="description_1:ContainerMapping" href="platform:/plugin/uk.ac.kcl.inf.modelling.pls.design/description/pls.odesign#//@ownedViewpoints[name='Production%20Line%20Systems']/@ownedRepresentations[name='Production%20Line%20Diagram']/@defaultLayer/@containerMappings[name='ConveyorC']"/>
       <ownedElements xmi:type="diagram:DNodeListElement" uid="__cZ2oHxCEeuo0IzrFKNBJg" name="Handle">
         <target xmi:type="pls:Handle" href="basic.pls#//@elements.4"/>
@@ -248,7 +251,7 @@
     <ownedDiagramElements xmi:type="diagram:DNodeList" uid="__cPekXxCEeuo0IzrFKNBJg" name="0" outgoingEdges="__fg1AHxCEeuo0IzrFKNBJg" incomingEdges="__fdKonxCEeuo0IzrFKNBJg">
       <target xmi:type="pls:Conveyor" href="basic.pls#//@elements.5"/>
       <semanticElements xmi:type="pls:Conveyor" href="basic.pls#//@elements.5"/>
-      <ownedStyle xmi:type="diagram:WorkspaceImage" uid="__cU-IHxCEeuo0IzrFKNBJg" showIcon="false" description="__b_m8nxCEeuo0IzrFKNBJg" borderLineStyle="dot" workspacePath="/uk.ac.kcl.inf.modelling.pls.design/icons/Conveyor.png"/>
+      <ownedStyle xmi:type="diagram:WorkspaceImage" uid="_L4SXcXxiEeu1Q_4BkbxKjw" showIcon="false" description="_L4PUIHxiEeu1Q_4BkbxKjw" workspacePath="/uk.ac.kcl.inf.modelling.pls.design/icons/Conveyor.png"/>
       <actualMapping xmi:type="description_1:ContainerMapping" href="platform:/plugin/uk.ac.kcl.inf.modelling.pls.design/description/pls.odesign#//@ownedViewpoints[name='Production%20Line%20Systems']/@ownedRepresentations[name='Production%20Line%20Diagram']/@defaultLayer/@containerMappings[name='ConveyorC']"/>
     </ownedDiagramElements>
     <ownedDiagramElements xmi:type="diagram:DNodeList" uid="__cU-InxCEeuo0IzrFKNBJg" name="0" incomingEdges="__fbVcHxCEeuo0IzrFKNBJg">
@@ -257,7 +260,7 @@
       <arrangeConstraints>KEEP_LOCATION</arrangeConstraints>
       <arrangeConstraints>KEEP_SIZE</arrangeConstraints>
       <arrangeConstraints>KEEP_RATIO</arrangeConstraints>
-      <ownedStyle xmi:type="diagram:WorkspaceImage" uid="__cZPkHxCEeuo0IzrFKNBJg" showIcon="false" description="__b_m8nxCEeuo0IzrFKNBJg" borderLineStyle="dot" workspacePath="/uk.ac.kcl.inf.modelling.pls.design/icons/Conveyor.png"/>
+      <ownedStyle xmi:type="diagram:WorkspaceImage" uid="_L4TlkXxiEeu1Q_4BkbxKjw" showIcon="false" description="_L4PUIHxiEeu1Q_4BkbxKjw" workspacePath="/uk.ac.kcl.inf.modelling.pls.design/icons/Conveyor.png"/>
       <actualMapping xmi:type="description_1:ContainerMapping" href="platform:/plugin/uk.ac.kcl.inf.modelling.pls.design/description/pls.odesign#//@ownedViewpoints[name='Production%20Line%20Systems']/@ownedRepresentations[name='Production%20Line%20Diagram']/@defaultLayer/@containerMappings[name='ConveyorC']"/>
     </ownedDiagramElements>
     <ownedDiagramElements xmi:type="diagram:DNodeList" uid="__es8sHxCEeuo0IzrFKNBJg" name="0" outgoingEdges="__fe_0HxCEeuo0IzrFKNBJg" incomingEdges="__ffm4nxCEeuo0IzrFKNBJg __fg1AHxCEeuo0IzrFKNBJg">

@@ -61,7 +61,7 @@
               <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             </style>
           </subNodeMappings>
-          <style xsi:type="style:WorkspaceImageDescription" borderLineStyle="dot" showIcon="false" labelExpression="[self.getCurrentParts()->size()+ self.parts->size()/]" workspacePath="/uk.ac.kcl.inf.modelling.pls.design/icons/Conveyor.png">
+          <style xsi:type="style:WorkspaceImageDescription" showIcon="false" labelExpression="[self.getCurrentParts()->size()+ self.parts->size()/]" workspacePath="/uk.ac.kcl.inf.modelling.pls.design/icons/Conveyor.png">
             <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
           </style>
