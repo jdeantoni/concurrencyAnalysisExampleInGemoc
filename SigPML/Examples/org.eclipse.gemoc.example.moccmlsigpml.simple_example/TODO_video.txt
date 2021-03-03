@@ -1,0 +1,7 @@
+
+
+* quick view of the language showing it is different from PLS and showing we have the same services with both metalanguage
+* quick sum up of how it helped me to define the semantics (to be send to Erwan).
+* PLS in MoCCML ?
+	explaining quickly the semantics and showing that the logical step are of different nature.
+	show that we can still use the same stratedgies based in the generic concept of parallel steps

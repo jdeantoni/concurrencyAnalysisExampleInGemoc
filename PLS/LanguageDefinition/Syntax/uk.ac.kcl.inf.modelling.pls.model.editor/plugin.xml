@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.ui.newWizards">
+      <!-- @generated model -->
+      <category
+            id="org.eclipse.emf.ecore.Wizard.category.ID"
+            name="%_UI_Wizard_category"/>
+      <wizard
+            id="uk.ac.kcl.inf.modelling.pls.pls.presentation.PLSModelWizardID"
+            name="%_UI_PLSModelWizard_label"
+            class="uk.ac.kcl.inf.modelling.pls.pls.presentation.PLSModelWizard"
+            category="org.eclipse.emf.ecore.Wizard.category.ID"
+            icon="icons/full/obj16/PLSModelFile.gif">
+         <description>%_UI_PLSModelWizard_description</description>
+         <selection class="org.eclipse.core.resources.IResource"/>
+      </wizard>
+   </extension>
+
+   <extension point="org.eclipse.ui.editors">
+      <!-- @generated model -->
+      <editor
+            id="uk.ac.kcl.inf.modelling.pls.pls.presentation.PLSEditorID"
+            name="%_UI_PLSEditor_label"
+            icon="icons/full/obj16/PLSModelFile.gif"
+            extensions="pls"
+            class="uk.ac.kcl.inf.modelling.pls.pls.presentation.PLSEditor"
+            contributorClass="uk.ac.kcl.inf.modelling.pls.pls.presentation.PLSActionBarContributor">
+      </editor>
+   </extension>
+</plugin>

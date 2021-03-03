@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+  <extension point="org.eclipse.gemoc.gemoc_language_workbench.xdsml">
+    <XDSML_Definition name="org.eclipse.gemoc.example.pls.Pls" xdsmlFilePath="/org.eclipse.gemoc.example.pls/Pls.dsl" modelLoader_class="org.eclipse.gemoc.executionframework.extensions.sirius.modelloader.DefaultModelLoader" />
+  </extension>
+  <extension point="org.eclipse.gemoc.gemoc_language_workbench.moccml.xdsml.addition">
+    <MOCCML_XDSML_Addition name="org.eclipse.gemoc.example.pls.Pls" referencedXDSMLName="org.eclipse.gemoc.example.pls.Pls" codeExecutor_class="pls.xdsml.api.impl.PlsCodeExecutor" solver_class="org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.timesquare.moc.impl.CcslSolver" toCCSLQVTOFilePath="/org.eclipse.gemoc.exmaple.pls.dse/qvto-gen/modeling/pls.qvto" />
+  </extension>
+</plugin>

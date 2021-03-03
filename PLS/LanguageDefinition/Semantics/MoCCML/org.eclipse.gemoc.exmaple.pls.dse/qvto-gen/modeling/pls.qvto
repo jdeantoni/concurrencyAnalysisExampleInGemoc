@@ -1,0 +1,468 @@
+import org.eclipse.gemoc.moccml_mapping.EclQVToHelper;
+modeltype Ecore uses 'http://www.eclipse.org/emf/2002/Ecore';
+	modeltype inMM1 uses 'https://inf.kcl.ac.uk/models/pls';
+
+modeltype QVT 		uses 'http://www.eclipse.org/QVT/1.0.0/Operational';
+modeltype TimeModel uses 'http://fr.inria.aoste.timemodel';
+modeltype FeedBack 	uses 'http://timesquare.inria.fr/feedback';
+modeltype Priority  uses 'http://fr.inria.aoste.timesquare.ccslkernel.solver.priorities';
+
+transformation doplatform__resource_uk_ac_kcl_inf_modelling_pls_model_model_model_ecore_To_CCSL(in inM : inMM1, out ccsl : TimeModel, out feedback : FeedBack, out priority: Priority);
+
+property thePrioritySpec		:Priority::PrioritySpecification = null;
+property theFeedBackSpec		:FeedBack::ActionModel = null;
+property seqOfMSE :	Sequence(FeedBack::ModelSpecificEvent)    = Sequence{};
+property theCCSLSpec			:TimeModel::CCSLModel::ClockConstraintSystem = null;
+property theMainBlock			:TimeModel::CCSLModel::Block				 = null;
+property Kernel_Integer 	: TimeModel::BasicType::Type		= null;
+property Kernel_Clock_Type 	: TimeModel::BasicType::Type		= null;
+property seqOfRelationDeclaration :	Sequence(TimeModel::CCSLModel::ClockExpressionAndRelation::RelationDeclaration)    = Sequence{};
+property seqOfAbstractEntity :		Sequence(TimeModel::CCSLModel::ClockExpressionAndRelation::AbstractEntity)    = Sequence{};
+property seqOfExpressionDeclaration :	Sequence(TimeModel::CCSLModel::ClockExpressionAndRelation::ExpressionDeclaration)    = Sequence{};
+property allVarDefs : Sequence(String) = Sequence{}; 
+
+query identifyUserRelations() {
+	var kernelTypes :  	Sequence(TimeModel::BasicType::Type) := Sequence{};
+	seqOfRelationDeclaration		+= getLibObjects("platform:/plugin/fr.inria.aoste.timesquare.ccslkernel.model/ccsllibrary/kernel.ccslLib")[TimeModel::CCSLModel::ClockExpressionAndRelation::RelationDeclaration];
+	seqOfAbstractEntity				+= getLibObjects("platform:/plugin/fr.inria.aoste.timesquare.ccslkernel.model/ccsllibrary/kernel.ccslLib")[TimeModel::CCSLModel::ClockExpressionAndRelation::AbstractEntity];
+	seqOfExpressionDeclaration		+= getLibObjects("platform:/plugin/fr.inria.aoste.timesquare.ccslkernel.model/ccsllibrary/kernel.ccslLib")[TimeModel::CCSLModel::ClockExpressionAndRelation::ExpressionDeclaration];
+	kernelTypes 					+= getLibObjects("platform:/plugin/fr.inria.aoste.timesquare.ccslkernel.model/ccsllibrary/kernel.ccslLib")[TimeModel::BasicType::Type];
+	seqOfRelationDeclaration		+= getLibObjects("platform:/plugin/fr.inria.aoste.timesquare.ccslkernel.model/ccsllibrary/CCSL.ccslLib")[TimeModel::CCSLModel::ClockExpressionAndRelation::RelationDeclaration];
+	seqOfAbstractEntity				+= getLibObjects("platform:/plugin/fr.inria.aoste.timesquare.ccslkernel.model/ccsllibrary/CCSL.ccslLib")[TimeModel::CCSLModel::ClockExpressionAndRelation::AbstractEntity];
+	seqOfExpressionDeclaration		+= getLibObjects("platform:/plugin/fr.inria.aoste.timesquare.ccslkernel.model/ccsllibrary/CCSL.ccslLib")[TimeModel::CCSLModel::ClockExpressionAndRelation::ExpressionDeclaration];
+	kernelTypes 					+= getLibObjects("platform:/plugin/fr.inria.aoste.timesquare.ccslkernel.model/ccsllibrary/CCSL.ccslLib")[TimeModel::BasicType::Type];
+
+	Kernel_Integer 					:= kernelTypes[name='int']->asSequence()->first();
+	Kernel_Clock_Type				:= kernelTypes[name='clock']->asSequence()->first();	
+	return;
+}
+
+
+//usefull function :)
+	mapping Real::Real2Integer(n: String) :TimeModel::BasicType::IntegerElement {
+		name:= n;
+		type:= Kernel_Integer;
+		value := self.round();
+
+		end{
+			theMainBlock.elements += result;
+		}
+	}
+
+main() {
+	identifyUserRelations();
+	inM.rootObjects()[inMM1::ProductionLineModel]->asSequence()->first()-> map pls2CCSL();
+	inM.rootObjects()[inMM1::ProductionLineModel]->asSequence()->first()-> map pls2FeedBack();
+	inM.rootObjects()[inMM1::ProductionLineModel]->asSequence()->first()-> map pls2Priority();
+}
+
+			
+	mapping inMM1::ProductionLineModel::pls2CCSL() : TimeModel::CCSLModel::ClockConstraintSystem {
+	    theCCSLSpec := result;
+	    name := getNameOrUID(self.oclAsType(EObject));
+	    theMainBlock :=object TimeModel::CCSLModel::Block{
+	    	name := "mainBlock";
+	    };
+	    subBlock += theMainBlock;
+	    result.superBlock := theMainBlock;
+		
+		var anEmptyBlock :=object TimeModel::CCSLModel::Block{
+	    	name := "emptyBlock";
+	    };
+	    subBlock += anEmptyBlock;
+		
+		imports+= object TimeModel::ImportStatement{
+			importURI := 'platform:/plugin/fr.inria.aoste.timesquare.ccslkernel.model/ccsllibrary/kernel.ccslLib';
+			alias := 'kernel';
+			
+		}; 
+		imports+= object TimeModel::ImportStatement{
+			importURI := 'platform:/plugin/fr.inria.aoste.timesquare.ccslkernel.model/ccsllibrary/CCSL.ccslLib';
+			alias := 'CCSL';
+			
+		}; 
+	
+		imports+= object TimeModel::ImportStatement{
+			importURI := getModelPath(inM.rootObjects()->asSequence()->first().oclAsType(EObject));
+			alias := getModelAlias(inM.rootObjects()->asSequence()->first().oclAsType(EObject));
+			
+		};
+		imports+= object TimeModel::ImportStatement{
+			importURI := getModelPath(inM.rootObjects()->asSequence()->first().oclAsType(EObject));
+			alias := getModelAlias(inM.rootObjects()->asSequence()->first().oclAsType(EObject));
+			
+		};
+
+		
+
+		////[ Machine ]
+		getVeryAllElementsFromResourceSetOf(self.oclAsType(EObject), Machine.oclAsType(EClass)).oclAsType(Machine)->map doWork2Clock();
+		
+
+
+		
+
+		////[ Conveyor ]
+		getVeryAllElementsFromResourceSetOf(self.oclAsType(EObject), Conveyor.oclAsType(EClass)).oclAsType(Conveyor)->map doMoveAlong2Clock();
+		
+
+
+		
+
+		
+
+
+		
+		getVeryAllElementsFromResourceSetOf(self.oclAsType(EObject), Tray.oclAsType(EClass)).oclAsType(Tray)->map produceWaitForInputNoInitial32produceWaitForInputNoInitial();
+		
+		
+
+		
+
+
+		
+		getVeryAllElementsFromResourceSetOf(self.oclAsType(EObject), Conveyor.oclAsType(EClass)).oclAsType(Conveyor)->map moveAfterMachineProductionNoInitial32moveAfterMachineProductionNoInitial();
+		
+		
+		getVeryAllElementsFromResourceSetOf(self.oclAsType(EObject), Conveyor.oclAsType(EClass)).oclAsType(Conveyor)->map moveAfterMachineProductionInitial42moveAfterMachineProductionInitial();
+		
+	}
+
+
+
+
+
+//create the expressions...
+
+	
+	
+//Create an intermediate expression
+//create the expressions... 
+	mapping inMM1::Tray::intermediate_lastInputArrival2Expression(an1 : Conveyor, an2 : Conveyor, nb : Integer):TimeModel::CCSLModel::ClockExpressionAndRelation::Expression
+	{ 
+		name := getNameOrUID(self.oclAsType(EObject))+'intermediate_lastInputArrival'+nb.toString();
+		type := seqOfExpressionDeclaration->select(rd | rd.name = "Sup")->first();
+		//from defs
+				var allInputConveyors : Collection(Conveyor) := self.oclAsType(ecore::EObject).eContainer().oclAsType(ProductionLineModel).elements->select(eo |eo.oclIsKindOf(Conveyor) and eo.oclAsType(Conveyor).tray = self).oclAsType(Conveyor);
+				var theOutputMachine : Machine := --self.Machine->asSequence()->first() 
+				self.oclAsType(ecore::EObject).eContainer().oclAsType(ProductionLineModel).elements->select(eo |eo.oclIsKindOf(Machine) and eo.oclAsType(Machine)._in= self)->asSequence()->first().oclAsType(Machine);
+		
+		//from lets
+		
+
+				bindings += object TimeModel::CCSLModel::ClockExpressionAndRelation::Binding{
+		 			bindable := theMainBlock.elements[name = getNameOrUID(an1.oclAsType(EObject))+'_doMoveAlong']->first();
+					var seqAbstract : Sequence(TimeModel::CCSLModel::ClockExpressionAndRelation::AbstractEntity) := seqOfExpressionDeclaration[name = 'Sup']->first().oclAsType(TimeModel::CCSLModel::ClockExpressionAndRelation::KernelExpression::Sup).allSubobjectsOfKind(TimeModel::CCSLModel::ClockExpressionAndRelation::AbstractEntity)->asSequence().oclAsType(TimeModel::CCSLModel::ClockExpressionAndRelation::AbstractEntity);
+					seqAbstract := seqAbstract->sortedBy(e | e.name); //just a way to have always the same order ?
+					_abstract := seqAbstract->at(1).oclAsType(TimeModel::CCSLModel::ClockExpressionAndRelation::AbstractEntity);
+				};
+				bindings += object TimeModel::CCSLModel::ClockExpressionAndRelation::Binding{
+					bindable := theMainBlock.elements[name = getNameOrUID(an2.oclAsType(EObject))+'_doMoveAlong']->first();
+					var seqAbstract : Sequence(TimeModel::CCSLModel::ClockExpressionAndRelation::AbstractEntity) := seqOfExpressionDeclaration[name = 'Sup']->first().oclAsType(TimeModel::CCSLModel::ClockExpressionAndRelation::KernelExpression::Sup).allSubobjectsOfKind(TimeModel::CCSLModel::ClockExpressionAndRelation::AbstractEntity)->asSequence().oclAsType(TimeModel::CCSLModel::ClockExpressionAndRelation::AbstractEntity);
+					seqAbstract := seqAbstract->sortedBy(e | e.name); //just a way to have always the same order ?
+					_abstract := seqAbstract->at(2).oclAsType(TimeModel::CCSLModel::ClockExpressionAndRelation::AbstractEntity);
+				};
+		end{
+			theMainBlock.expressions += result;
+		}
+	}
+
+	mapping inMM1::Tray::intermediate_lastInputArrival2Expression(expr :TimeModel::CCSLModel::ClockExpressionAndRelation::Expression , an : Conveyor, nb : Integer):TimeModel::CCSLModel::ClockExpressionAndRelation::Expression
+	{
+		name := getNameOrUID(self.oclAsType(EObject))+'intermediate_lastInputArrival'+nb.toString();
+		type := seqOfExpressionDeclaration->select(rd | rd.name = "Sup")->first();
+		//from defs
+				var allInputConveyors : Collection(Conveyor) := self.oclAsType(ecore::EObject).eContainer().oclAsType(ProductionLineModel).elements->select(eo |eo.oclIsKindOf(Conveyor) and eo.oclAsType(Conveyor).tray = self).oclAsType(Conveyor);
+				var theOutputMachine : Machine := --self.Machine->asSequence()->first() 
+				self.oclAsType(ecore::EObject).eContainer().oclAsType(ProductionLineModel).elements->select(eo |eo.oclIsKindOf(Machine) and eo.oclAsType(Machine)._in= self)->asSequence()->first().oclAsType(Machine);
+		
+		//from lets
+		
+				bindings += object TimeModel::CCSLModel::ClockExpressionAndRelation::Binding{
+					bindable := theMainBlock.expressions[name = expr.name]->first();
+					var seqAbstract : Sequence(TimeModel::CCSLModel::ClockExpressionAndRelation::AbstractEntity) := seqOfExpressionDeclaration[name = 'Sup']->first().oclAsType(TimeModel::CCSLModel::ClockExpressionAndRelation::KernelExpression::Sup).allSubobjectsOfKind(TimeModel::CCSLModel::ClockExpressionAndRelation::AbstractEntity)->asSequence().oclAsType(TimeModel::CCSLModel::ClockExpressionAndRelation::AbstractEntity);
+					seqAbstract := seqAbstract->sortedBy(e | e.name); //just a way to have always the same order ?
+					_abstract := seqAbstract->at(1).oclAsType(TimeModel::CCSLModel::ClockExpressionAndRelation::AbstractEntity);
+				};
+				bindings += object TimeModel::CCSLModel::ClockExpressionAndRelation::Binding{
+					bindable := theMainBlock.elements[name = getNameOrUID(an.oclAsType(EObject))+'_doMoveAlong']->first();
+					
+					var seqAbstract : Sequence(TimeModel::CCSLModel::ClockExpressionAndRelation::AbstractEntity) := seqOfExpressionDeclaration[name = 'Sup']->first().oclAsType(TimeModel::CCSLModel::ClockExpressionAndRelation::KernelExpression::Sup).allSubobjectsOfKind(TimeModel::CCSLModel::ClockExpressionAndRelation::AbstractEntity)->asSequence().oclAsType(TimeModel::CCSLModel::ClockExpressionAndRelation::AbstractEntity);
+					seqAbstract := seqAbstract->sortedBy(e | e.name); //just a way to have always the same order ?
+					_abstract := seqAbstract->at(2).oclAsType(TimeModel::CCSLModel::ClockExpressionAndRelation::AbstractEntity);
+				};
+		end{
+			theMainBlock.expressions += result;
+		}
+	}
+	
+	mapping inMM1::Tray::lastInputArrival2Expression():TimeModel::CCSLModel::ClockExpressionAndRelation::Expression
+	{
+		init{
+		//from defs
+				var allInputConveyors : Collection(Conveyor) := self.oclAsType(ecore::EObject).eContainer().oclAsType(ProductionLineModel).elements->select(eo |eo.oclIsKindOf(Conveyor) and eo.oclAsType(Conveyor).tray = self).oclAsType(Conveyor);
+				var theOutputMachine : Machine := --self.Machine->asSequence()->first() 
+				self.oclAsType(ecore::EObject).eContainer().oclAsType(ProductionLineModel).elements->select(eo |eo.oclIsKindOf(Machine) and eo.oclAsType(Machine)._in= self)->asSequence()->first().oclAsType(Machine);
+		
+		//from lets
+		
+
+		var sources : Sequence(Conveyor) := allInputConveyors->asSequence();
+		var lastExpr : TimeModel::CCSLModel::ClockExpressionAndRelation::Expression :=null;
+		var i : Integer := 3;
+		var newExpr : TimeModel::CCSLModel::ClockExpressionAndRelation::Expression := lastExpr;
+		var size : Integer = sources->size(); 
+		if(size = 1)then{
+			result := self.map intermediate_lastInputArrival2Expression(sources->at(1),sources->at(1), 1);
+		}else{
+			lastExpr := self.map intermediate_lastInputArrival2Expression(sources->at(1),sources->at(2), 1);
+			while (i <= size){
+				newExpr := self.map intermediate_lastInputArrival2Expression(lastExpr,sources->at(i), i);
+				lastExpr := newExpr;
+				i := i + 1;
+			};
+			result := lastExpr;
+		}
+		endif;
+		}
+		
+		end{
+			theMainBlock.expressions += result;
+		}
+	}
+
+
+	mapping inMM1::Conveyor::delayedMoveAlong2Expression():TimeModel::CCSLModel::ClockExpressionAndRelation::Expression
+	{
+		name := getNameOrUID(self.oclAsType(EObject))+'_DelayFor_delayedMoveAlong';
+		type := seqOfExpressionDeclaration->select(rd | rd.name = "DelayFor")->first();
+		//from defs
+				var theInputMachine : Machine := self.oclAsType(ecore::EObject).eContainer().oclAsType(ProductionLineModel).elements->select(eo |eo.oclIsKindOf(Machine) and eo.oclAsType(Machine)._out = self)->asSequence()->first().oclAsType(Machine);
+		
+		//from lets
+				var delay : Integer := self.parts->size().round();
+		
+
+				bindings += object TimeModel::CCSLModel::ClockExpressionAndRelation::Binding{
+					bindable := theMainBlock.elements[name = getNameOrUID(self.oclAsType(EObject))+'_doMoveAlong']->first();
+					_abstract := seqOfAbstractEntity[name = 'DelayForClockToDelay' and container().oclAsType(TimeModel::CCSLModel::ClockExpressionAndRelation::ExpressionDeclaration).name = 'DelayFor']->first();
+				};
+				bindings += object TimeModel::CCSLModel::ClockExpressionAndRelation::Binding{
+					bindable := theMainBlock.elements[name = getNameOrUID(self.oclAsType(EObject))+'_doMoveAlong']->first();
+					_abstract := seqOfAbstractEntity[name = 'DelayForClockForCounting' and container().oclAsType(TimeModel::CCSLModel::ClockExpressionAndRelation::ExpressionDeclaration).name = 'DelayFor']->first();
+				};
+				bindings += object TimeModel::CCSLModel::ClockExpressionAndRelation::Binding{
+								bindable := self.parts->size().round() -> map Real2Integer(getNameOrUID(self.oclAsType(EObject))+self.parts->size().toString()+"_round()")->asSequence()->first();
+					_abstract := seqOfAbstractEntity[name = 'DelayForDelay' and container().oclAsType(TimeModel::CCSLModel::ClockExpressionAndRelation::ExpressionDeclaration).name = 'DelayFor']->first();
+				};
+		end{
+			theMainBlock.expressions += result;
+		}
+	}
+
+
+
+	 	mapping inMM1::Machine::doWork2Clock() :TimeModel::Clock 
+		{
+			name:= getNameOrUID(self.oclAsType(EObject))+'_doWork';
+			tickingEvent := object TimeModel::Event{
+ 				referencedObjectRefs += self.oclAsType(EObject);
+				//referencedObjectRefs += self.oclAsType(EObject);
+				referencedObjectRefs += self.oclAsType(EObject).eClass().eAllOperations->select(op |op.name = "work")->first().oclAsType(EObject);
+			
+				name := 'evt_'+getNameOrUID(self.oclAsType(EObject))+'_doWork';
+			kind :=TimeModel::EventKind::undefined;
+						
+			};
+			type:= Kernel_Clock_Type;
+
+			end{
+				theMainBlock.elements += result;
+			}
+		}
+
+//relation stuff		
+	 	mapping inMM1::Conveyor::doMoveAlong2Clock() :TimeModel::Clock 
+		{
+			name:= getNameOrUID(self.oclAsType(EObject))+'_doMoveAlong';
+			tickingEvent := object TimeModel::Event{
+ 				referencedObjectRefs += self.oclAsType(EObject);
+				//referencedObjectRefs += self.oclAsType(EObject);
+				referencedObjectRefs += self.oclAsType(EObject).eClass().eAllOperations->select(op |op.name = "moveAlong")->first().oclAsType(EObject);
+			
+				name := 'evt_'+getNameOrUID(self.oclAsType(EObject))+'_doMoveAlong';
+			kind :=TimeModel::EventKind::undefined;
+						
+			};
+			type:= Kernel_Clock_Type;
+
+			end{
+				theMainBlock.elements += result;
+			}
+		}
+
+//relation stuff		
+
+//relation stuff		
+	
+		mapping inMM1::Tray::produceWaitForInputNoInitial32produceWaitForInputNoInitial(): TimeModel::CCSLModel::ClockExpressionAndRelation::Relation
+			when { 
+						let allInputConveyors : Collection(Conveyor) = self.oclAsType(ecore::EObject).eContainer().oclAsType(ProductionLineModel).elements->select(eo |eo.oclIsKindOf(Conveyor) and eo.oclAsType(Conveyor).tray = self).oclAsType(Conveyor) in
+						let theOutputMachine : Machine = --self.Machine->asSequence()->first() 
+						self.oclAsType(ecore::EObject).eContainer().oclAsType(ProductionLineModel).elements->select(eo |eo.oclIsKindOf(Machine) and eo.oclAsType(Machine)._in= self)->asSequence()->first().oclAsType(Machine) in
+				
+				(self.parts->size() = 0) 
+				
+}
+		{
+		 	name := getNameOrUID(self.oclAsType(EObject))+"Precedes_produceWaitForInputNoInitial";
+			type := seqOfRelationDeclaration->select(rd | rd.name = "Precedes")->first();
+					var allInputConveyors : Collection(Conveyor) := self.oclAsType(ecore::EObject).eContainer().oclAsType(ProductionLineModel).elements->select(eo |eo.oclIsKindOf(Conveyor) and eo.oclAsType(Conveyor).tray = self).oclAsType(Conveyor);
+					var theOutputMachine : Machine := --self.Machine->asSequence()->first() 
+					self.oclAsType(ecore::EObject).eContainer().oclAsType(ProductionLineModel).elements->select(eo |eo.oclIsKindOf(Machine) and eo.oclAsType(Machine)._in= self)->asSequence()->first().oclAsType(Machine);
+			
+			
+				bindings += object TimeModel::CCSLModel::ClockExpressionAndRelation::Binding{
+							bindable := self -> map lastInputArrival2Expression()->asSequence()->first();
+					_abstract := seqOfRelationDeclaration[name = 'Precedes']->first().oclAsType(TimeModel::CCSLModel::ClockExpressionAndRelation::KernelRelation::KernelRelationDeclaration).leftEntity;
+				};
+				bindings += object TimeModel::CCSLModel::ClockExpressionAndRelation::Binding{
+					bindable := theMainBlock.elements[name = getNameOrUID(theOutputMachine.oclAsType(EObject))+'_doWork']->first();
+					_abstract := seqOfRelationDeclaration[name = 'Precedes']->first().oclAsType(TimeModel::CCSLModel::ClockExpressionAndRelation::KernelRelation::KernelRelationDeclaration).rightEntity;
+				};
+		
+		theMainBlock.relations += result;
+		}
+		
+
+//relation stuff		
+	
+		mapping inMM1::Conveyor::moveAfterMachineProductionNoInitial32moveAfterMachineProductionNoInitial(): TimeModel::CCSLModel::ClockExpressionAndRelation::Relation
+			when { 
+						let theInputMachine : Machine = self.oclAsType(ecore::EObject).eContainer().oclAsType(ProductionLineModel).elements->select(eo |eo.oclIsKindOf(Machine) and eo.oclAsType(Machine)._out = self)->asSequence()->first().oclAsType(Machine) in
+				
+				(self.parts->size() = 0) 
+				
+}
+		{
+		 	name := getNameOrUID(self.oclAsType(EObject))+"Precedes_moveAfterMachineProductionNoInitial";
+			type := seqOfRelationDeclaration->select(rd | rd.name = "Precedes")->first();
+					var theInputMachine : Machine := self.oclAsType(ecore::EObject).eContainer().oclAsType(ProductionLineModel).elements->select(eo |eo.oclIsKindOf(Machine) and eo.oclAsType(Machine)._out = self)->asSequence()->first().oclAsType(Machine);
+			
+			
+				bindings += object TimeModel::CCSLModel::ClockExpressionAndRelation::Binding{
+					bindable := theMainBlock.elements[name = getNameOrUID(theInputMachine.oclAsType(EObject))+'_doWork']->first();
+					_abstract := seqOfRelationDeclaration[name = 'Precedes']->first().oclAsType(TimeModel::CCSLModel::ClockExpressionAndRelation::KernelRelation::KernelRelationDeclaration).leftEntity;
+				};
+				bindings += object TimeModel::CCSLModel::ClockExpressionAndRelation::Binding{
+					bindable := theMainBlock.elements[name = getNameOrUID(self.oclAsType(EObject))+'_doMoveAlong']->first();
+					_abstract := seqOfRelationDeclaration[name = 'Precedes']->first().oclAsType(TimeModel::CCSLModel::ClockExpressionAndRelation::KernelRelation::KernelRelationDeclaration).rightEntity;
+				};
+		
+		theMainBlock.relations += result;
+		}
+		
+	
+		mapping inMM1::Conveyor::moveAfterMachineProductionInitial42moveAfterMachineProductionInitial(): TimeModel::CCSLModel::ClockExpressionAndRelation::Relation
+			when { 
+						let theInputMachine : Machine = self.oclAsType(ecore::EObject).eContainer().oclAsType(ProductionLineModel).elements->select(eo |eo.oclIsKindOf(Machine) and eo.oclAsType(Machine)._out = self)->asSequence()->first().oclAsType(Machine) in
+				
+				(self.parts->size() > 0) 
+				
+}
+		{
+		 	name := getNameOrUID(self.oclAsType(EObject))+"Precedes_moveAfterMachineProductionInitial";
+			type := seqOfRelationDeclaration->select(rd | rd.name = "Precedes")->first();
+					var theInputMachine : Machine := self.oclAsType(ecore::EObject).eContainer().oclAsType(ProductionLineModel).elements->select(eo |eo.oclIsKindOf(Machine) and eo.oclAsType(Machine)._out = self)->asSequence()->first().oclAsType(Machine);
+			
+					var delay : Integer := self.parts->size().round();
+			
+				bindings += object TimeModel::CCSLModel::ClockExpressionAndRelation::Binding{
+					bindable := theMainBlock.elements[name = getNameOrUID(theInputMachine.oclAsType(EObject))+'_doWork']->first();
+					_abstract := seqOfRelationDeclaration[name = 'Precedes']->first().oclAsType(TimeModel::CCSLModel::ClockExpressionAndRelation::KernelRelation::KernelRelationDeclaration).leftEntity;
+				};
+				bindings += object TimeModel::CCSLModel::ClockExpressionAndRelation::Binding{
+							bindable := self -> map delayedMoveAlong2Expression()->asSequence()->first();
+					_abstract := seqOfRelationDeclaration[name = 'Precedes']->first().oclAsType(TimeModel::CCSLModel::ClockExpressionAndRelation::KernelRelation::KernelRelationDeclaration).rightEntity;
+				};
+		
+		theMainBlock.relations += result;
+		}
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+mapping inMM1::ProductionLineModel::pls2FeedBack() : FeedBack::ActionModel {
+	    theFeedBackSpec := result;
+		importStatements+= object FeedBack::ImportStatement{
+			importURI := getModelPath(ccsl.objectsOfType(TimeModel::Clock)->asSequence()->first().oclAsType(EObject));
+		}; 
+	getVeryAllElementsFromResourceSetOf(self.oclAsType(EObject), Machine.oclAsType(EClass)).oclAsType(Machine)->map doWork2MSE();
+	getVeryAllElementsFromResourceSetOf(self.oclAsType(EObject), Conveyor.oclAsType(EClass)).oclAsType(Conveyor)->map doMoveAlong2MSE();
+}		
+
+
+	 	mapping inMM1::Machine::doWork2MSE() :FeedBack::ModelSpecificEvent 
+		{
+			name:= 'MSE_'+getNameOrUID(self.oclAsType(EObject))+'_doWork';
+
+				caller := self.oclAsType(EObject);
+				action := self.oclAsType(EObject).eClass().eAllOperations->select(op |op.name = "work")->first();
+				solverEvent := theMainBlock.elements[TimeModel::Clock]->select(c|c.name=getNameOrUID(self.oclAsType(EObject))+'_doWork')->first().oclAsType(EObject);
+				
+			end{
+				theFeedBackSpec.events += result;
+				seqOfMSE += result
+			}
+		}
+	 	mapping inMM1::Conveyor::doMoveAlong2MSE() :FeedBack::ModelSpecificEvent 
+		{
+			name:= 'MSE_'+getNameOrUID(self.oclAsType(EObject))+'_doMoveAlong';
+
+				caller := self.oclAsType(EObject);
+				action := self.oclAsType(EObject).eClass().eAllOperations->select(op |op.name = "moveAlong")->first();
+				solverEvent := theMainBlock.elements[TimeModel::Clock]->select(c|c.name=getNameOrUID(self.oclAsType(EObject))+'_doMoveAlong')->first().oclAsType(EObject);
+				
+			end{
+				theFeedBackSpec.events += result;
+				seqOfMSE += result
+			}
+		}
+			
+		
+
+
+
+
+
+
+//priority stuff
+
+mapping inMM1::ProductionLineModel::pls2Priority()  :Priority::PrioritySpecification  {
+	thePrioritySpec := result;
+	importedModel := object Priority::ImportStatement{
+		importURI := getModelPath(ccsl.objectsOfType(TimeModel::Clock)->asSequence()->first().oclAsType(EObject));
+	}; 
+}	
+
+
+
+
