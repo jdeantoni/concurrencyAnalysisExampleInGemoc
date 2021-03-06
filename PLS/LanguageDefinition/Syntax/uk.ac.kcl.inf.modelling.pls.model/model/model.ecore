@@ -3,10 +3,10 @@
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="pls" nsURI="https://inf.kcl.ac.uk/models/pls" nsPrefix="pls">
   <eClassifiers xsi:type="ecore:EClass" name="ProductionLineModel">
     <eOperations name="initialize"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="elements" upperBound="-1"
-        eType="#//NamedElement" containment="true">
-      <eAnnotations source="aspect"/>
-    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="machines" upperBound="-1"
+        eType="#//Machine" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="containers" upperBound="-1"
+        eType="#//Container" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Machine" eSuperTypes="#//NamedElement">
     <eOperations name="work"/>
@@ -15,7 +15,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Container" eSuperTypes="#//NamedElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="parts" upperBound="-1"
-        eType="#//Part">
+        eType="#//Part" containment="true">
       <eAnnotations source="aspect"/>
     </eStructuralFeatures>
   </eClassifiers>

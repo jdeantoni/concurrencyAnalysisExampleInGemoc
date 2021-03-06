@@ -15,7 +15,8 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link uk.ac.kcl.inf.modelling.pls.pls.ProductionLineModel#getElements <em>Elements</em>}</li>
+ *   <li>{@link uk.ac.kcl.inf.modelling.pls.pls.ProductionLineModel#getMachines <em>Machines</em>}</li>
+ *   <li>{@link uk.ac.kcl.inf.modelling.pls.pls.ProductionLineModel#getContainers <em>Containers</em>}</li>
  * </ul>
  *
  * @see uk.ac.kcl.inf.modelling.pls.pls.PLSPackage#getProductionLineModel()
@@ -24,21 +25,36 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface ProductionLineModel extends EObject {
 	/**
-	 * Returns the value of the '<em><b>Elements</b></em>' containment reference list.
-	 * The list contents are of type {@link uk.ac.kcl.inf.modelling.pls.pls.NamedElement}.
+	 * Returns the value of the '<em><b>Machines</b></em>' containment reference list.
+	 * The list contents are of type {@link uk.ac.kcl.inf.modelling.pls.pls.Machine}.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Elements</em>' containment reference list isn't clear,
+	 * If the meaning of the '<em>Machines</em>' containment reference list isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Elements</em>' containment reference list.
-	 * @see uk.ac.kcl.inf.modelling.pls.pls.PLSPackage#getProductionLineModel_Elements()
+	 * @return the value of the '<em>Machines</em>' containment reference list.
+	 * @see uk.ac.kcl.inf.modelling.pls.pls.PLSPackage#getProductionLineModel_Machines()
 	 * @model containment="true"
-	 *        annotation="aspect"
 	 * @generated
 	 */
-	EList<NamedElement> getElements();
+	EList<Machine> getMachines();
+
+	/**
+	 * Returns the value of the '<em><b>Containers</b></em>' containment reference list.
+	 * The list contents are of type {@link uk.ac.kcl.inf.modelling.pls.pls.Container}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Containers</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Containers</em>' containment reference list.
+	 * @see uk.ac.kcl.inf.modelling.pls.pls.PLSPackage#getProductionLineModel_Containers()
+	 * @model containment="true"
+	 * @generated
+	 */
+	EList<Container> getContainers();
 
 	/**
 	 * <!-- begin-user-doc -->

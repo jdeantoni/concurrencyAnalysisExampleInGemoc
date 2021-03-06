@@ -4,12 +4,14 @@ package uk.ac.kcl.inf.modelling.pls.pls.impl;
 
 import java.util.Collection;
 
+import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
 
-import org.eclipse.emf.ecore.util.EObjectResolvingEList;
-
+import org.eclipse.emf.ecore.InternalEObject;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 import uk.ac.kcl.inf.modelling.pls.pls.PLSPackage;
 import uk.ac.kcl.inf.modelling.pls.pls.Part;
 
@@ -28,7 +30,7 @@ import uk.ac.kcl.inf.modelling.pls.pls.Part;
  */
 public class ContainerImpl extends NamedElementImpl implements uk.ac.kcl.inf.modelling.pls.pls.Container {
 	/**
-	 * The cached value of the '{@link #getParts() <em>Parts</em>}' reference list.
+	 * The cached value of the '{@link #getParts() <em>Parts</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getParts()
@@ -64,9 +66,23 @@ public class ContainerImpl extends NamedElementImpl implements uk.ac.kcl.inf.mod
 	@Override
 	public EList<Part> getParts() {
 		if (parts == null) {
-			parts = new EObjectResolvingEList<Part>(Part.class, this, PLSPackage.CONTAINER__PARTS);
+			parts = new EObjectContainmentEList<Part>(Part.class, this, PLSPackage.CONTAINER__PARTS);
 		}
 		return parts;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+		case PLSPackage.CONTAINER__PARTS:
+			return ((InternalEList<?>) getParts()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**

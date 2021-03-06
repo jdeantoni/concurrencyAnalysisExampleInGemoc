@@ -22,7 +22,7 @@ import org.eclipse.emf.common.util.EList;
  */
 public interface Container extends NamedElement {
 	/**
-	 * Returns the value of the '<em><b>Parts</b></em>' reference list.
+	 * Returns the value of the '<em><b>Parts</b></em>' containment reference list.
 	 * The list contents are of type {@link uk.ac.kcl.inf.modelling.pls.pls.Part}.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -30,9 +30,10 @@ public interface Container extends NamedElement {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Parts</em>' reference list.
+	 * @return the value of the '<em>Parts</em>' containment reference list.
 	 * @see uk.ac.kcl.inf.modelling.pls.pls.PLSPackage#getContainer_Parts()
-	 * @model annotation="aspect"
+	 * @model containment="true"
+	 *        annotation="aspect"
 	 * @generated
 	 */
 	EList<Part> getParts();

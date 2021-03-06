@@ -219,8 +219,18 @@ public class PLSPackageImpl extends EPackageImpl implements PLSPackage {
 	 * @generated
 	 */
 	@Override
-	public EReference getProductionLineModel_Elements() {
+	public EReference getProductionLineModel_Machines() {
 		return (EReference) productionLineModelEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getProductionLineModel_Containers() {
+		return (EReference) productionLineModelEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -474,7 +484,8 @@ public class PLSPackageImpl extends EPackageImpl implements PLSPackage {
 
 		// Create classes and their features
 		productionLineModelEClass = createEClass(PRODUCTION_LINE_MODEL);
-		createEReference(productionLineModelEClass, PRODUCTION_LINE_MODEL__ELEMENTS);
+		createEReference(productionLineModelEClass, PRODUCTION_LINE_MODEL__MACHINES);
+		createEReference(productionLineModelEClass, PRODUCTION_LINE_MODEL__CONTAINERS);
 		createEOperation(productionLineModelEClass, PRODUCTION_LINE_MODEL___INITIALIZE);
 
 		machineEClass = createEClass(MACHINE);
@@ -559,7 +570,10 @@ public class PLSPackageImpl extends EPackageImpl implements PLSPackage {
 		// Initialize classes, features, and operations; add parameters
 		initEClass(productionLineModelEClass, ProductionLineModel.class, "ProductionLineModel", !IS_ABSTRACT,
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getProductionLineModel_Elements(), this.getNamedElement(), null, "elements", null, 0, -1,
+		initEReference(getProductionLineModel_Machines(), this.getMachine(), null, "machines", null, 0, -1,
+				ProductionLineModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
+				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getProductionLineModel_Containers(), this.getContainer(), null, "containers", null, 0, -1,
 				ProductionLineModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
 				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -579,7 +593,7 @@ public class PLSPackageImpl extends EPackageImpl implements PLSPackage {
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getContainer_Parts(), this.getPart(), null, "parts", null, 0, -1,
 				uk.ac.kcl.inf.modelling.pls.pls.Container.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
-				!IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+				IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(partEClass, Part.class, "Part", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -634,7 +648,6 @@ public class PLSPackageImpl extends EPackageImpl implements PLSPackage {
 	 */
 	protected void createAspectAnnotations() {
 		String source = "aspect";
-		addAnnotation(getProductionLineModel_Elements(), source, new String[] {});
 		addAnnotation(getContainer_Parts(), source, new String[] {});
 		addAnnotation(partEClass, source, new String[] {});
 		addAnnotation(hammerEClass, source, new String[] {});

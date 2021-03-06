@@ -68,13 +68,22 @@ public interface PLSPackage extends EPackage {
 	int PRODUCTION_LINE_MODEL = 0;
 
 	/**
-	 * The feature id for the '<em><b>Elements</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Machines</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PRODUCTION_LINE_MODEL__ELEMENTS = 0;
+	int PRODUCTION_LINE_MODEL__MACHINES = 0;
+
+	/**
+	 * The feature id for the '<em><b>Containers</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PRODUCTION_LINE_MODEL__CONTAINERS = 1;
 
 	/**
 	 * The number of structural features of the '<em>Production Line Model</em>' class.
@@ -83,7 +92,7 @@ public interface PLSPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int PRODUCTION_LINE_MODEL_FEATURE_COUNT = 1;
+	int PRODUCTION_LINE_MODEL_FEATURE_COUNT = 2;
 
 	/**
 	 * The operation id for the '<em>Initialize</em>' operation.
@@ -224,7 +233,7 @@ public interface PLSPackage extends EPackage {
 	int CONTAINER__NAME = NAMED_ELEMENT__NAME;
 
 	/**
-	 * The feature id for the '<em><b>Parts</b></em>' reference list.
+	 * The feature id for the '<em><b>Parts</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -307,7 +316,7 @@ public interface PLSPackage extends EPackage {
 	int CONVEYOR__NAME = CONTAINER__NAME;
 
 	/**
-	 * The feature id for the '<em><b>Parts</b></em>' reference list.
+	 * The feature id for the '<em><b>Parts</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -371,7 +380,7 @@ public interface PLSPackage extends EPackage {
 	int TRAY__NAME = CONTAINER__NAME;
 
 	/**
-	 * The feature id for the '<em><b>Parts</b></em>' reference list.
+	 * The feature id for the '<em><b>Parts</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -839,15 +848,26 @@ public interface PLSPackage extends EPackage {
 	EClass getProductionLineModel();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link uk.ac.kcl.inf.modelling.pls.pls.ProductionLineModel#getElements <em>Elements</em>}'.
+	 * Returns the meta object for the containment reference list '{@link uk.ac.kcl.inf.modelling.pls.pls.ProductionLineModel#getMachines <em>Machines</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Elements</em>'.
-	 * @see uk.ac.kcl.inf.modelling.pls.pls.ProductionLineModel#getElements()
+	 * @return the meta object for the containment reference list '<em>Machines</em>'.
+	 * @see uk.ac.kcl.inf.modelling.pls.pls.ProductionLineModel#getMachines()
 	 * @see #getProductionLineModel()
 	 * @generated
 	 */
-	EReference getProductionLineModel_Elements();
+	EReference getProductionLineModel_Machines();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link uk.ac.kcl.inf.modelling.pls.pls.ProductionLineModel#getContainers <em>Containers</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Containers</em>'.
+	 * @see uk.ac.kcl.inf.modelling.pls.pls.ProductionLineModel#getContainers()
+	 * @see #getProductionLineModel()
+	 * @generated
+	 */
+	EReference getProductionLineModel_Containers();
 
 	/**
 	 * Returns the meta object for the '{@link uk.ac.kcl.inf.modelling.pls.pls.ProductionLineModel#initialize() <em>Initialize</em>}' operation.
@@ -912,10 +932,10 @@ public interface PLSPackage extends EPackage {
 	EClass getContainer();
 
 	/**
-	 * Returns the meta object for the reference list '{@link uk.ac.kcl.inf.modelling.pls.pls.Container#getParts <em>Parts</em>}'.
+	 * Returns the meta object for the containment reference list '{@link uk.ac.kcl.inf.modelling.pls.pls.Container#getParts <em>Parts</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Parts</em>'.
+	 * @return the meta object for the containment reference list '<em>Parts</em>'.
 	 * @see uk.ac.kcl.inf.modelling.pls.pls.Container#getParts()
 	 * @see #getContainer()
 	 * @generated
@@ -1108,12 +1128,20 @@ public interface PLSPackage extends EPackage {
 		EClass PRODUCTION_LINE_MODEL = eINSTANCE.getProductionLineModel();
 
 		/**
-		 * The meta object literal for the '<em><b>Elements</b></em>' containment reference list feature.
+		 * The meta object literal for the '<em><b>Machines</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference PRODUCTION_LINE_MODEL__ELEMENTS = eINSTANCE.getProductionLineModel_Elements();
+		EReference PRODUCTION_LINE_MODEL__MACHINES = eINSTANCE.getProductionLineModel_Machines();
+
+		/**
+		 * The meta object literal for the '<em><b>Containers</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference PRODUCTION_LINE_MODEL__CONTAINERS = eINSTANCE.getProductionLineModel_Containers();
 
 		/**
 		 * The meta object literal for the '<em><b>Initialize</b></em>' operation.
@@ -1168,7 +1196,7 @@ public interface PLSPackage extends EPackage {
 		EClass CONTAINER = eINSTANCE.getContainer();
 
 		/**
-		 * The meta object literal for the '<em><b>Parts</b></em>' reference list feature.
+		 * The meta object literal for the '<em><b>Parts</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated

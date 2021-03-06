@@ -143,9 +143,8 @@ main() {
 		name := getNameOrUID(self.oclAsType(EObject))+'intermediate_lastInputArrival'+nb.toString();
 		type := seqOfExpressionDeclaration->select(rd | rd.name = "Sup")->first();
 		//from defs
-				var allInputConveyors : Collection(Conveyor) := self.oclAsType(ecore::EObject).eContainer().oclAsType(ProductionLineModel).elements->select(eo |eo.oclIsKindOf(Conveyor) and eo.oclAsType(Conveyor).tray = self).oclAsType(Conveyor);
-				var theOutputMachine : Machine := --self.Machine->asSequence()->first() 
-				self.oclAsType(ecore::EObject).eContainer().oclAsType(ProductionLineModel).elements->select(eo |eo.oclIsKindOf(Machine) and eo.oclAsType(Machine)._in= self)->asSequence()->first().oclAsType(Machine);
+				var allInputConveyors : Collection(Conveyor) := self.oclAsType(ecore::EObject).eContainer().oclAsType(ProductionLineModel).containers->select(eo |eo.oclIsKindOf(Conveyor) and eo.oclAsType(Conveyor).tray = self).oclAsType(Conveyor);
+				var theOutputMachine : Machine := self.oclAsType(ecore::EObject).eContainer().oclAsType(ProductionLineModel).machines->select(eo |eo._in= self)->asSequence()->first();
 		
 		//from lets
 		
@@ -172,9 +171,8 @@ main() {
 		name := getNameOrUID(self.oclAsType(EObject))+'intermediate_lastInputArrival'+nb.toString();
 		type := seqOfExpressionDeclaration->select(rd | rd.name = "Sup")->first();
 		//from defs
-				var allInputConveyors : Collection(Conveyor) := self.oclAsType(ecore::EObject).eContainer().oclAsType(ProductionLineModel).elements->select(eo |eo.oclIsKindOf(Conveyor) and eo.oclAsType(Conveyor).tray = self).oclAsType(Conveyor);
-				var theOutputMachine : Machine := --self.Machine->asSequence()->first() 
-				self.oclAsType(ecore::EObject).eContainer().oclAsType(ProductionLineModel).elements->select(eo |eo.oclIsKindOf(Machine) and eo.oclAsType(Machine)._in= self)->asSequence()->first().oclAsType(Machine);
+				var allInputConveyors : Collection(Conveyor) := self.oclAsType(ecore::EObject).eContainer().oclAsType(ProductionLineModel).containers->select(eo |eo.oclIsKindOf(Conveyor) and eo.oclAsType(Conveyor).tray = self).oclAsType(Conveyor);
+				var theOutputMachine : Machine := self.oclAsType(ecore::EObject).eContainer().oclAsType(ProductionLineModel).machines->select(eo |eo._in= self)->asSequence()->first();
 		
 		//from lets
 		
@@ -200,9 +198,8 @@ main() {
 	{
 		init{
 		//from defs
-				var allInputConveyors : Collection(Conveyor) := self.oclAsType(ecore::EObject).eContainer().oclAsType(ProductionLineModel).elements->select(eo |eo.oclIsKindOf(Conveyor) and eo.oclAsType(Conveyor).tray = self).oclAsType(Conveyor);
-				var theOutputMachine : Machine := --self.Machine->asSequence()->first() 
-				self.oclAsType(ecore::EObject).eContainer().oclAsType(ProductionLineModel).elements->select(eo |eo.oclIsKindOf(Machine) and eo.oclAsType(Machine)._in= self)->asSequence()->first().oclAsType(Machine);
+				var allInputConveyors : Collection(Conveyor) := self.oclAsType(ecore::EObject).eContainer().oclAsType(ProductionLineModel).containers->select(eo |eo.oclIsKindOf(Conveyor) and eo.oclAsType(Conveyor).tray = self).oclAsType(Conveyor);
+				var theOutputMachine : Machine := self.oclAsType(ecore::EObject).eContainer().oclAsType(ProductionLineModel).machines->select(eo |eo._in= self)->asSequence()->first();
 		
 		//from lets
 		
@@ -237,7 +234,7 @@ main() {
 		name := getNameOrUID(self.oclAsType(EObject))+'_DelayFor_delayedMoveAlong';
 		type := seqOfExpressionDeclaration->select(rd | rd.name = "DelayFor")->first();
 		//from defs
-				var theInputMachine : Machine := self.oclAsType(ecore::EObject).eContainer().oclAsType(ProductionLineModel).elements->select(eo |eo.oclIsKindOf(Machine) and eo.oclAsType(Machine)._out = self)->asSequence()->first().oclAsType(Machine);
+				var theInputMachine : Machine := self.oclAsType(ecore::EObject).eContainer().oclAsType(ProductionLineModel).machines->select(eo |eo._out = self)->asSequence()->first();
 		
 		//from lets
 				var delay : Integer := self.parts->size().round();
@@ -307,9 +304,8 @@ main() {
 	
 		mapping inMM1::Tray::produceWaitForInputNoInitial32produceWaitForInputNoInitial(): TimeModel::CCSLModel::ClockExpressionAndRelation::Relation
 			when { 
-						let allInputConveyors : Collection(Conveyor) = self.oclAsType(ecore::EObject).eContainer().oclAsType(ProductionLineModel).elements->select(eo |eo.oclIsKindOf(Conveyor) and eo.oclAsType(Conveyor).tray = self).oclAsType(Conveyor) in
-						let theOutputMachine : Machine = --self.Machine->asSequence()->first() 
-						self.oclAsType(ecore::EObject).eContainer().oclAsType(ProductionLineModel).elements->select(eo |eo.oclIsKindOf(Machine) and eo.oclAsType(Machine)._in= self)->asSequence()->first().oclAsType(Machine) in
+						let allInputConveyors : Collection(Conveyor) = self.oclAsType(ecore::EObject).eContainer().oclAsType(ProductionLineModel).containers->select(eo |eo.oclIsKindOf(Conveyor) and eo.oclAsType(Conveyor).tray = self).oclAsType(Conveyor) in
+						let theOutputMachine : Machine = self.oclAsType(ecore::EObject).eContainer().oclAsType(ProductionLineModel).machines->select(eo |eo._in= self)->asSequence()->first() in
 				
 				(self.parts->size() = 0) 
 				
@@ -317,9 +313,8 @@ main() {
 		{
 		 	name := getNameOrUID(self.oclAsType(EObject))+"Precedes_produceWaitForInputNoInitial";
 			type := seqOfRelationDeclaration->select(rd | rd.name = "Precedes")->first();
-					var allInputConveyors : Collection(Conveyor) := self.oclAsType(ecore::EObject).eContainer().oclAsType(ProductionLineModel).elements->select(eo |eo.oclIsKindOf(Conveyor) and eo.oclAsType(Conveyor).tray = self).oclAsType(Conveyor);
-					var theOutputMachine : Machine := --self.Machine->asSequence()->first() 
-					self.oclAsType(ecore::EObject).eContainer().oclAsType(ProductionLineModel).elements->select(eo |eo.oclIsKindOf(Machine) and eo.oclAsType(Machine)._in= self)->asSequence()->first().oclAsType(Machine);
+					var allInputConveyors : Collection(Conveyor) := self.oclAsType(ecore::EObject).eContainer().oclAsType(ProductionLineModel).containers->select(eo |eo.oclIsKindOf(Conveyor) and eo.oclAsType(Conveyor).tray = self).oclAsType(Conveyor);
+					var theOutputMachine : Machine := self.oclAsType(ecore::EObject).eContainer().oclAsType(ProductionLineModel).machines->select(eo |eo._in= self)->asSequence()->first();
 			
 			
 				bindings += object TimeModel::CCSLModel::ClockExpressionAndRelation::Binding{
@@ -339,7 +334,7 @@ main() {
 	
 		mapping inMM1::Conveyor::moveAfterMachineProductionNoInitial32moveAfterMachineProductionNoInitial(): TimeModel::CCSLModel::ClockExpressionAndRelation::Relation
 			when { 
-						let theInputMachine : Machine = self.oclAsType(ecore::EObject).eContainer().oclAsType(ProductionLineModel).elements->select(eo |eo.oclIsKindOf(Machine) and eo.oclAsType(Machine)._out = self)->asSequence()->first().oclAsType(Machine) in
+						let theInputMachine : Machine = self.oclAsType(ecore::EObject).eContainer().oclAsType(ProductionLineModel).machines->select(eo |eo._out = self)->asSequence()->first() in
 				
 				(self.parts->size() = 0) 
 				
@@ -347,7 +342,7 @@ main() {
 		{
 		 	name := getNameOrUID(self.oclAsType(EObject))+"Precedes_moveAfterMachineProductionNoInitial";
 			type := seqOfRelationDeclaration->select(rd | rd.name = "Precedes")->first();
-					var theInputMachine : Machine := self.oclAsType(ecore::EObject).eContainer().oclAsType(ProductionLineModel).elements->select(eo |eo.oclIsKindOf(Machine) and eo.oclAsType(Machine)._out = self)->asSequence()->first().oclAsType(Machine);
+					var theInputMachine : Machine := self.oclAsType(ecore::EObject).eContainer().oclAsType(ProductionLineModel).machines->select(eo |eo._out = self)->asSequence()->first();
 			
 			
 				bindings += object TimeModel::CCSLModel::ClockExpressionAndRelation::Binding{
@@ -365,7 +360,7 @@ main() {
 	
 		mapping inMM1::Conveyor::moveAfterMachineProductionInitial42moveAfterMachineProductionInitial(): TimeModel::CCSLModel::ClockExpressionAndRelation::Relation
 			when { 
-						let theInputMachine : Machine = self.oclAsType(ecore::EObject).eContainer().oclAsType(ProductionLineModel).elements->select(eo |eo.oclIsKindOf(Machine) and eo.oclAsType(Machine)._out = self)->asSequence()->first().oclAsType(Machine) in
+						let theInputMachine : Machine = self.oclAsType(ecore::EObject).eContainer().oclAsType(ProductionLineModel).machines->select(eo |eo._out = self)->asSequence()->first() in
 				
 				(self.parts->size() > 0) 
 				
@@ -373,7 +368,7 @@ main() {
 		{
 		 	name := getNameOrUID(self.oclAsType(EObject))+"Precedes_moveAfterMachineProductionInitial";
 			type := seqOfRelationDeclaration->select(rd | rd.name = "Precedes")->first();
-					var theInputMachine : Machine := self.oclAsType(ecore::EObject).eContainer().oclAsType(ProductionLineModel).elements->select(eo |eo.oclIsKindOf(Machine) and eo.oclAsType(Machine)._out = self)->asSequence()->first().oclAsType(Machine);
+					var theInputMachine : Machine := self.oclAsType(ecore::EObject).eContainer().oclAsType(ProductionLineModel).machines->select(eo |eo._out = self)->asSequence()->first();
 			
 					var delay : Integer := self.parts->size().round();
 			

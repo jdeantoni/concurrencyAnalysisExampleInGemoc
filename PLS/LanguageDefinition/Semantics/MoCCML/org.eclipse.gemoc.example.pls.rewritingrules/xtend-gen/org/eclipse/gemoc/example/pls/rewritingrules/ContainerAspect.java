@@ -1,6 +1,7 @@
 package org.eclipse.gemoc.example.pls.rewritingrules;
 
 import fr.inria.diverse.k3.al.annotationprocessor.Aspect;
+import fr.inria.diverse.k3.al.annotationprocessor.Containment;
 import java.util.ArrayList;
 import org.eclipse.gemoc.example.pls.rewritingrules.ContainerAspectContainerAspectProperties;
 import uk.ac.kcl.inf.modelling.pls.pls.Container;
@@ -9,6 +10,7 @@ import uk.ac.kcl.inf.modelling.pls.pls.Part;
 @Aspect(className = Container.class)
 @SuppressWarnings("all")
 public class ContainerAspect {
+  @Containment
   public static ArrayList<Part> currentParts(final Container _self) {
     final org.eclipse.gemoc.example.pls.rewritingrules.ContainerAspectContainerAspectProperties _self_ = org.eclipse.gemoc.example.pls.rewritingrules.ContainerAspectContainerAspectContext.getSelf(_self);
     Object result = null;
@@ -19,6 +21,7 @@ public class ContainerAspect {
     return (java.util.ArrayList<uk.ac.kcl.inf.modelling.pls.pls.Part>)result;
   }
   
+  @Containment
   public static void currentParts(final Container _self, final ArrayList<Part> currentParts) {
     final org.eclipse.gemoc.example.pls.rewritingrules.ContainerAspectContainerAspectProperties _self_ = org.eclipse.gemoc.example.pls.rewritingrules.ContainerAspectContainerAspectContext.getSelf(_self);
     // #DispatchPointCut_before# void currentParts(ArrayList<Part>)

@@ -17,25 +17,14 @@ import java.util.ArrayList
 
 import static extension org.eclipse.gemoc.example.pls.rewritingrules.ContainerAspect.*
 import fr.inria.diverse.k3.al.annotationprocessor.InitializeModel
+import fr.inria.diverse.k3.al.annotationprocessor.Containment
 
 @Aspect(className=Container)
 class ContainerAspect{
-	public ArrayList<Part> currentParts
+	@Containment
+	public ArrayList<Part> currentParts  //Runtime state of the model
 }
 
-@Aspect(className=Conveyor)
-class ConveyorAspect {	
-	@Step
-	@ReplaceAspectMethod
-	def void moveAlong(){		
-		if (_self.tray !== null){
-			_self.tray.currentParts.add(_self.currentParts.get(0));
-		}else{
-			(_self.eContainer as ProductionLineModel).elements.remove(_self.currentParts.get(0))
-		}
-		_self.currentParts.remove(0)
-	}
-}
 
 @Aspect(className=ProductionLineModel)
 class ProductionLineModelAspect {
@@ -44,7 +33,7 @@ class ProductionLineModelAspect {
 	@InitializeModel
 	def void initialize(String[] unused){
 		println("initialization in progress ")
-		for(Container c : _self.elements.filter[e | e instanceof Container].map[e | e as Container]){
+		for(Container c : _self.containers){
 			c.currentParts = new ArrayList(c.parts)
 			c.parts.clear
 		}
@@ -53,24 +42,15 @@ class ProductionLineModelAspect {
 	}
 }
 
-
-@Aspect(className=Assembler)
-class AssemblerAspect {
+@Aspect(className=Conveyor)
+class ConveyorAspect {	
 	@Step
 	@ReplaceAspectMethod
-	def void work(){
-		var anHandle = _self.in.currentParts.filter[e|e instanceof Handle].get(0)
-		var aHead = _self.in.currentParts.filter[e|e instanceof Head].get(0)
-		
-		_self.in.currentParts.remove(anHandle)
-		_self.in.currentParts.remove(aHead)
-		(_self.eContainer as ProductionLineModel).elements.remove(anHandle)
-		(_self.eContainer as ProductionLineModel).elements.remove(aHead)
-		
-		var aHammer = PLSFactory.eINSTANCE.createHammer
-		_self.out.currentParts.add(aHammer)
-		(_self.eContainer as ProductionLineModel).elements.add(aHammer)
-		 return
+	def void moveAlong(){
+		var thePart = _self.currentParts.remove(0)		
+		if (_self.tray !== null){ //there is a tray to receive the part
+			_self.tray.currentParts.add(thePart);
+		}
 	}
 }
 
@@ -81,7 +61,6 @@ class GenHeadAspect{
 	@ReplaceAspectMethod
 	def void work(){
 		var aHead = PLSFactory.eINSTANCE.createHead()
-		(_self.eContainer as ProductionLineModel).elements.add(aHead)
 		_self.out.currentParts.add(aHead) 
 		return
 	} 
@@ -94,8 +73,25 @@ class GenHandleAspect{
 	@ReplaceAspectMethod
 	def void work(){
 		var aHandle = PLSFactory.eINSTANCE.createHandle()
-		(_self.eContainer as ProductionLineModel).elements.add(aHandle)
 		_self.out.currentParts.add(aHandle)
 		 return
 	}
 }
+
+@Aspect(className=Assembler)
+class AssemblerAspect {
+	@Step
+	@ReplaceAspectMethod
+	def void work(){
+		var anHandle = _self.in.currentParts.filter[e|e instanceof Handle].get(0)
+		var aHead = _self.in.currentParts.filter[e|e instanceof Head].get(0)
+		
+		_self.in.currentParts.remove(anHandle)
+		_self.in.currentParts.remove(aHead)
+		
+		var aHammer = PLSFactory.eINSTANCE.createHammer
+		_self.out.currentParts.add(aHammer)
+		 return
+	}
+}
+

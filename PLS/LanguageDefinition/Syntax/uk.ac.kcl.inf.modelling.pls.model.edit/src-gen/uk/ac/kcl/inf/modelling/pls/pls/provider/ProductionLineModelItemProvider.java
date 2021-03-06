@@ -70,7 +70,8 @@ public class ProductionLineModelItemProvider extends ItemProviderAdapter impleme
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(PLSPackage.Literals.PRODUCTION_LINE_MODEL__ELEMENTS);
+			childrenFeatures.add(PLSPackage.Literals.PRODUCTION_LINE_MODEL__MACHINES);
+			childrenFeatures.add(PLSPackage.Literals.PRODUCTION_LINE_MODEL__CONTAINERS);
 		}
 		return childrenFeatures;
 	}
@@ -132,7 +133,8 @@ public class ProductionLineModelItemProvider extends ItemProviderAdapter impleme
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(ProductionLineModel.class)) {
-		case PLSPackage.PRODUCTION_LINE_MODEL__ELEMENTS:
+		case PLSPackage.PRODUCTION_LINE_MODEL__MACHINES:
+		case PLSPackage.PRODUCTION_LINE_MODEL__CONTAINERS:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 			return;
 		}
@@ -150,44 +152,32 @@ public class ProductionLineModelItemProvider extends ItemProviderAdapter impleme
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
-		newChildDescriptors.add(createChildParameter(PLSPackage.Literals.PRODUCTION_LINE_MODEL__ELEMENTS,
+		newChildDescriptors.add(createChildParameter(PLSPackage.Literals.PRODUCTION_LINE_MODEL__MACHINES,
 				PLSFactory.eINSTANCE.createMachine()));
 
-		newChildDescriptors.add(createChildParameter(PLSPackage.Literals.PRODUCTION_LINE_MODEL__ELEMENTS,
-				PLSFactory.eINSTANCE.createContainer()));
-
-		newChildDescriptors.add(createChildParameter(PLSPackage.Literals.PRODUCTION_LINE_MODEL__ELEMENTS,
-				PLSFactory.eINSTANCE.createPart()));
-
-		newChildDescriptors.add(createChildParameter(PLSPackage.Literals.PRODUCTION_LINE_MODEL__ELEMENTS,
-				PLSFactory.eINSTANCE.createConveyor()));
-
-		newChildDescriptors.add(createChildParameter(PLSPackage.Literals.PRODUCTION_LINE_MODEL__ELEMENTS,
-				PLSFactory.eINSTANCE.createTray()));
-
-		newChildDescriptors.add(createChildParameter(PLSPackage.Literals.PRODUCTION_LINE_MODEL__ELEMENTS,
-				PLSFactory.eINSTANCE.createHammer()));
-
-		newChildDescriptors.add(createChildParameter(PLSPackage.Literals.PRODUCTION_LINE_MODEL__ELEMENTS,
-				PLSFactory.eINSTANCE.createHead()));
-
-		newChildDescriptors.add(createChildParameter(PLSPackage.Literals.PRODUCTION_LINE_MODEL__ELEMENTS,
-				PLSFactory.eINSTANCE.createHandle()));
-
-		newChildDescriptors.add(createChildParameter(PLSPackage.Literals.PRODUCTION_LINE_MODEL__ELEMENTS,
+		newChildDescriptors.add(createChildParameter(PLSPackage.Literals.PRODUCTION_LINE_MODEL__MACHINES,
 				PLSFactory.eINSTANCE.createPolisher()));
 
-		newChildDescriptors.add(createChildParameter(PLSPackage.Literals.PRODUCTION_LINE_MODEL__ELEMENTS,
+		newChildDescriptors.add(createChildParameter(PLSPackage.Literals.PRODUCTION_LINE_MODEL__MACHINES,
 				PLSFactory.eINSTANCE.createAssembler()));
 
-		newChildDescriptors.add(createChildParameter(PLSPackage.Literals.PRODUCTION_LINE_MODEL__ELEMENTS,
+		newChildDescriptors.add(createChildParameter(PLSPackage.Literals.PRODUCTION_LINE_MODEL__MACHINES,
 				PLSFactory.eINSTANCE.createGenerator()));
 
-		newChildDescriptors.add(createChildParameter(PLSPackage.Literals.PRODUCTION_LINE_MODEL__ELEMENTS,
+		newChildDescriptors.add(createChildParameter(PLSPackage.Literals.PRODUCTION_LINE_MODEL__MACHINES,
 				PLSFactory.eINSTANCE.createGenHead()));
 
-		newChildDescriptors.add(createChildParameter(PLSPackage.Literals.PRODUCTION_LINE_MODEL__ELEMENTS,
+		newChildDescriptors.add(createChildParameter(PLSPackage.Literals.PRODUCTION_LINE_MODEL__MACHINES,
 				PLSFactory.eINSTANCE.createGenHandle()));
+
+		newChildDescriptors.add(createChildParameter(PLSPackage.Literals.PRODUCTION_LINE_MODEL__CONTAINERS,
+				PLSFactory.eINSTANCE.createContainer()));
+
+		newChildDescriptors.add(createChildParameter(PLSPackage.Literals.PRODUCTION_LINE_MODEL__CONTAINERS,
+				PLSFactory.eINSTANCE.createConveyor()));
+
+		newChildDescriptors.add(createChildParameter(PLSPackage.Literals.PRODUCTION_LINE_MODEL__CONTAINERS,
+				PLSFactory.eINSTANCE.createTray()));
 	}
 
 	/**

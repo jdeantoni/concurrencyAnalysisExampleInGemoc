@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <description:Group xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:description="http://www.eclipse.org/sirius/description/1.1.0" xmlns:description_1="http://www.eclipse.org/sirius/diagram/description/1.1.0" xmlns:style="http://www.eclipse.org/sirius/diagram/description/style/1.1.0" xmlns:tool="http://www.eclipse.org/sirius/diagram/description/tool/1.1.0" xmlns:tool_1="http://www.eclipse.org/sirius/description/tool/1.1.0" name="pls" version="12.0.0.2017041100">
   <ownedViewpoints name="Production Line Systems" modelFileExtension="pls">
-    <ownedRepresentations xsi:type="description_1:DiagramDescription" name="Production Line Diagram" initialisation="true" showOnStartup="true" domainClass="ProductionLineModel" enablePopupBars="true">
-      <layout xsi:type="description_1:CustomLayoutConfiguration" id="org.eclipse.elk.layered" label="ELK Layered" description="Layer-based algorithm provided by the Eclipse Layout Kernel. Arranges as many edges as possible into one direction by placing nodes into subsequent layers. This implementation supports different routing styles (straight, orthogonal, splines); if orthogonal routing is selected, arbitrary port constraints are respected, thus enabling the layout of block diagrams such as actor-oriented models or circuit schematics. Furthermore, full layout of compound graphs with cross-hierarchy edges is supported when the respective option is activated on the top level."/>
+    <ownedRepresentations xsi:type="description_1:DiagramDescription" name="Production Line Diagram" domainClass="ProductionLineModel" enablePopupBars="true">
       <defaultLayer name="Default">
         <nodeMappings name="GenHandle" domainClass="GenHandle">
           <style xsi:type="style:WorkspaceImageDescription" showIcon="false" sizeComputationExpression="-1" resizeKind="NSEW" workspacePath="/uk.ac.kcl.inf.modelling.pls.design/icons/GenHandle.png">
@@ -48,40 +47,28 @@
         </edgeMappings>
         <containerMappings name="ConveyorC" domainClass="Conveyor" childrenPresentation="List">
           <subNodeMappings name="PartNode" semanticCandidatesExpression="feature:parts" domainClass="Part">
-            <style xsi:type="style:BundledImageDescription" labelExpression="aql:self.eClass().name" labelPosition="node" resizeKind="NSEW">
+            <style xsi:type="style:BundledImageDescription" borderSizeComputationExpression="2" labelExpression="aql:self.name+':'+self.eClass().name" labelPosition="node" resizeKind="NSEW">
               <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
-              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
-              <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <labelFormat>bold</labelFormat>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
+              <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
             </style>
           </subNodeMappings>
-          <subNodeMappings name="DynamicPartNode" semanticCandidatesExpression="[self.getCurrentParts()/]" domainClass="pls::Part">
-            <style xsi:type="style:BundledImageDescription" labelExpression="aql:self.eClass().name" labelPosition="node" resizeKind="NSEW">
-              <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
-              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
-              <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
-            </style>
-          </subNodeMappings>
-          <style xsi:type="style:WorkspaceImageDescription" showIcon="false" labelExpression="[self.getCurrentParts()->size()+ self.parts->size()/]" workspacePath="/uk.ac.kcl.inf.modelling.pls.design/icons/Conveyor.png">
+          <style xsi:type="style:WorkspaceImageDescription" showIcon="false" labelExpression="aql:self.parts->size()" workspacePath="/uk.ac.kcl.inf.modelling.pls.design/icons/Conveyor.png">
             <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
           </style>
         </containerMappings>
         <containerMappings name="TrayC" domainClass="Tray" childrenPresentation="List">
           <subNodeMappings name="PartNode" semanticCandidatesExpression="feature:parts" domainClass="Part">
-            <style xsi:type="style:BundledImageDescription" labelExpression="aql:self.eClass().name" labelPosition="node" resizeKind="NSEW">
+            <style xsi:type="style:BundledImageDescription" labelExpression="aql:self.name+':'+self.eClass().name" labelPosition="node" resizeKind="NSEW">
               <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
-              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
-              <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <labelFormat>bold</labelFormat>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
+              <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
             </style>
           </subNodeMappings>
-          <subNodeMappings name="DynamicPartNode" semanticCandidatesExpression="[self.getCurrentParts()/]" domainClass="pls::Part">
-            <style xsi:type="style:BundledImageDescription" labelExpression="aql:self.eClass().name" labelPosition="node" resizeKind="NSEW">
-              <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
-              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
-              <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
-            </style>
-          </subNodeMappings>
-          <style xsi:type="style:WorkspaceImageDescription" showIcon="false" labelExpression="[self.getCurrentParts()->size()+ self.parts->size()/]" workspacePath="/uk.ac.kcl.inf.modelling.pls.design/icons/Tray.png">
+          <style xsi:type="style:WorkspaceImageDescription" showIcon="false" labelExpression="aql:self.parts->size()" workspacePath="/uk.ac.kcl.inf.modelling.pls.design/icons/Tray.png">
             <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             <labelFormat>bold</labelFormat>
             <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
@@ -93,7 +80,7 @@
             <viewVariable name="containerView"/>
             <initialOperation>
               <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:container">
-                <subModelOperations xsi:type="tool_1:CreateInstance" typeName="GenHandle" referenceName="elements"/>
+                <subModelOperations xsi:type="tool_1:CreateInstance" typeName="GenHandle" referenceName="machines"/>
               </firstModelOperations>
             </initialOperation>
           </ownedTools>
@@ -102,7 +89,7 @@
             <viewVariable name="containerView"/>
             <initialOperation>
               <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:container">
-                <subModelOperations xsi:type="tool_1:CreateInstance" typeName="GenHead" referenceName="elements"/>
+                <subModelOperations xsi:type="tool_1:CreateInstance" typeName="GenHead" referenceName="machines"/>
               </firstModelOperations>
             </initialOperation>
           </ownedTools>
@@ -111,7 +98,7 @@
             <viewVariable name="containerView"/>
             <initialOperation>
               <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:container">
-                <subModelOperations xsi:type="tool_1:CreateInstance" typeName="Assembler" referenceName="elements"/>
+                <subModelOperations xsi:type="tool_1:CreateInstance" typeName="Assembler" referenceName="machines"/>
               </firstModelOperations>
             </initialOperation>
           </ownedTools>
@@ -150,44 +137,7 @@
           </ownedTools>
         </toolSections>
       </defaultLayer>
-      <additionalLayers name="Debug" activeByDefault="true">
-        <toolSections name="Debug">
-          <ownedTools xsi:type="tool_1:PopupMenu" name="Gemoc">
-            <menuItemDescription xsi:type="tool_1:OperationAction" name="Debug" icon="/org.eclipse.gemoc.executionframework.extensions.sirius/icons/debug_exc.gif">
-              <view name="views"/>
-              <initialOperation>
-                <firstModelOperations xsi:type="tool_1:ExternalJavaAction" name="Debug" icon="/org.eclipse.gemoc.executionframework.extensions.sirius/icons/debug_exc.gif" id="org.eclipse.gemoc.execution.sequential.javaengine.ui.debug.sirius.action.gemocDebugAs"/>
-              </initialOperation>
-            </menuItemDescription>
-            <menuItemDescription xsi:type="tool_1:OperationAction" name="Toggle breakpoint" icon="/org.eclipse.gemoc.executionframework.extensions.sirius/icons/debug_exc.gif">
-              <view name="views"/>
-              <initialOperation>
-                <firstModelOperations xsi:type="tool_1:ExternalJavaAction" name="Toggle Gemoc breakpoint" icon="/org.eclipse.gemoc.executionframework.extensions.sirius/icons/breakpoint.gif" id="org.eclipse.gemoc.execution.sequential.javaengine.ui.debug.sirius.action.GemocSequentialToggleBreakpointAction"/>
-              </initialOperation>
-            </menuItemDescription>
-            <menuItemDescription xsi:type="tool_1:OperationAction" name="Toggle conditional breakpoint" icon="/org.eclipse.gemoc.executionframework.extensions.sirius/icons/debug_exc.gif">
-              <view name="views"/>
-              <initialOperation>
-                <firstModelOperations xsi:type="tool_1:ExternalJavaAction" name="Toggle Gemoc conditional breakpoint" icon="/org.eclipse.gemoc.executionframework.extensions.sirius/icons/breakpoint.gif" id="org.eclipse.gemoc.execution.sequential.javaengine.ui.debug.sirius.action.GemocSequentialToggleConditionalBreakpointAction"/>
-              </initialOperation>
-            </menuItemDescription>
-          </ownedTools>
-        </toolSections>
-        <decorationDescriptionsSet>
-          <decorationDescriptions xsi:type="description_1:MappingBasedDecoration" name="Enabled breakpoint" position="WEST" preconditionExpression="service:self.hasEnabledBreakpoint" imageExpression="/org.eclipse.gemoc.executionframework.extensions.sirius/icons/breakpoint_enabled.gif" mappings="//@ownedViewpoints[name='Production%20Line%20Systems']/@ownedRepresentations[name='Production%20Line%20Diagram']/@defaultLayer/@nodeMappings[name='GenHandle'] //@ownedViewpoints[name='Production%20Line%20Systems']/@ownedRepresentations[name='Production%20Line%20Diagram']/@defaultLayer/@nodeMappings[name='GenHead'] //@ownedViewpoints[name='Production%20Line%20Systems']/@ownedRepresentations[name='Production%20Line%20Diagram']/@defaultLayer/@nodeMappings[name='Assembler'] //@ownedViewpoints[name='Production%20Line%20Systems']/@ownedRepresentations[name='Production%20Line%20Diagram']/@defaultLayer/@edgeMappings[name='MachineOut'] //@ownedViewpoints[name='Production%20Line%20Systems']/@ownedRepresentations[name='Production%20Line%20Diagram']/@defaultLayer/@edgeMappings[name='in'] //@ownedViewpoints[name='Production%20Line%20Systems']/@ownedRepresentations[name='Production%20Line%20Diagram']/@defaultLayer/@edgeMappings[name='transfer'] //@ownedViewpoints[name='Production%20Line%20Systems']/@ownedRepresentations[name='Production%20Line%20Diagram']/@defaultLayer/@containerMappings[name='ConveyorC'] //@ownedViewpoints[name='Production%20Line%20Systems']/@ownedRepresentations[name='Production%20Line%20Diagram']/@defaultLayer/@containerMappings[name='ConveyorC']/@subNodeMappings[name='PartNode'] //@ownedViewpoints[name='Production%20Line%20Systems']/@ownedRepresentations[name='Production%20Line%20Diagram']/@defaultLayer/@containerMappings[name='TrayC'] //@ownedViewpoints[name='Production%20Line%20Systems']/@ownedRepresentations[name='Production%20Line%20Diagram']/@defaultLayer/@containerMappings[name='TrayC']/@subNodeMappings[name='PartNode']"/>
-          <decorationDescriptions xsi:type="description_1:MappingBasedDecoration" name="Disabled breakpoint" position="WEST" preconditionExpression="service:self.hasDisabledBreakpoint" imageExpression="/org.eclipse.gemoc.executionframework.extensions.sirius/icons/breakpoint_disabled.gif" mappings="//@ownedViewpoints[name='Production%20Line%20Systems']/@ownedRepresentations[name='Production%20Line%20Diagram']/@defaultLayer/@nodeMappings[name='GenHandle'] //@ownedViewpoints[name='Production%20Line%20Systems']/@ownedRepresentations[name='Production%20Line%20Diagram']/@defaultLayer/@nodeMappings[name='GenHead'] //@ownedViewpoints[name='Production%20Line%20Systems']/@ownedRepresentations[name='Production%20Line%20Diagram']/@defaultLayer/@nodeMappings[name='Assembler'] //@ownedViewpoints[name='Production%20Line%20Systems']/@ownedRepresentations[name='Production%20Line%20Diagram']/@defaultLayer/@edgeMappings[name='MachineOut'] //@ownedViewpoints[name='Production%20Line%20Systems']/@ownedRepresentations[name='Production%20Line%20Diagram']/@defaultLayer/@edgeMappings[name='in'] //@ownedViewpoints[name='Production%20Line%20Systems']/@ownedRepresentations[name='Production%20Line%20Diagram']/@defaultLayer/@edgeMappings[name='transfer'] //@ownedViewpoints[name='Production%20Line%20Systems']/@ownedRepresentations[name='Production%20Line%20Diagram']/@defaultLayer/@containerMappings[name='ConveyorC'] //@ownedViewpoints[name='Production%20Line%20Systems']/@ownedRepresentations[name='Production%20Line%20Diagram']/@defaultLayer/@containerMappings[name='ConveyorC']/@subNodeMappings[name='PartNode'] //@ownedViewpoints[name='Production%20Line%20Systems']/@ownedRepresentations[name='Production%20Line%20Diagram']/@defaultLayer/@containerMappings[name='TrayC'] //@ownedViewpoints[name='Production%20Line%20Systems']/@ownedRepresentations[name='Production%20Line%20Diagram']/@defaultLayer/@containerMappings[name='TrayC']/@subNodeMappings[name='PartNode']"/>
-        </decorationDescriptionsSet>
-        <customization>
-          <vsmElementCustomizations xsi:type="description:VSMElementCustomization" predicateExpression="[true/]">
-            <featureCustomizations xsi:type="description:EAttributeCustomization" appliedOn="//@ownedViewpoints[name='Production%20Line%20Systems']/@ownedRepresentations[name='Production%20Line%20Diagram']/@defaultLayer/@containerMappings[name='ConveyorC']/@style //@ownedViewpoints[name='Production%20Line%20Systems']/@ownedRepresentations[name='Production%20Line%20Diagram']/@defaultLayer/@containerMappings[name='TrayC']/@style" attributeName="labelExpression" value="[self.getCurrentParts()/]"/>
-          </vsmElementCustomizations>
-        </customization>
-      </additionalLayers>
     </ownedRepresentations>
     <ownedJavaExtensions qualifiedClassName="uk.ac.kcl.inf.modelling.pls.design.Services"/>
-    <ownedJavaExtensions qualifiedClassName="uk.ac.kcl.inf.modelling.pls.design.services.ProductionlinediagramDebugServices"/>
   </ownedViewpoints>
-  <userColorsPalettes name="Production Line Diagram Palette">
-    <entries xsi:type="description:UserFixedColor" red="255" green="255" blue="0" name="current instruction"/>
-  </userColorsPalettes>
 </description:Group>

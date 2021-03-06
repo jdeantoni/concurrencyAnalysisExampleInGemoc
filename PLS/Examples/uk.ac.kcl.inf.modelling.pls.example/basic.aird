@@ -4,7 +4,7 @@
     <semanticResources>basic.pls</semanticResources>
     <ownedViews xmi:type="viewpoint:DView" uid="__U6ukHxCEeuo0IzrFKNBJg">
       <viewpoint xmi:type="description:Viewpoint" href="platform:/plugin/uk.ac.kcl.inf.modelling.pls.design/description/pls.odesign#//@ownedViewpoints[name='Production%20Line%20Systems']"/>
-      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="__U_nEHxCEeuo0IzrFKNBJg" name="Production Line Diagram" repPath="#__U8jwHxCEeuo0IzrFKNBJg" changeId="f69e922f-f8fe-4f23-a3bb-9dc2da5a9448">
+      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="__U_nEHxCEeuo0IzrFKNBJg" name="Production Line Diagram" repPath="#__U8jwHxCEeuo0IzrFKNBJg" changeId="77feb4e2-9072-4e9f-9a6b-9d8cf6018c16">
         <description xmi:type="description_1:DiagramDescription" href="platform:/plugin/uk.ac.kcl.inf.modelling.pls.design/description/pls.odesign#//@ownedViewpoints[name='Production%20Line%20Systems']/@ownedRepresentations[name='Production%20Line%20Diagram']"/>
         <target xmi:type="pls:ProductionLineModel" href="basic.pls#/"/>
       </ownedRepresentationDescriptors>

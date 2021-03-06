@@ -8,11 +8,8 @@ import java.util.ArrayList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.gemoc.example.pls.rewritingrules.ContainerAspect;
 import org.eclipse.gemoc.example.pls.rewritingrules.ProductionLineModelAspectProductionLineModelAspectProperties;
-import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.InputOutput;
-import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import uk.ac.kcl.inf.modelling.pls.pls.Container;
-import uk.ac.kcl.inf.modelling.pls.pls.NamedElement;
 import uk.ac.kcl.inf.modelling.pls.pls.Part;
 import uk.ac.kcl.inf.modelling.pls.pls.ProductionLineModel;
 
@@ -44,14 +41,8 @@ public class ProductionLineModelAspect {
   
   protected static void _privk3_initialize(final ProductionLineModelAspectProductionLineModelAspectProperties _self_, final ProductionLineModel _self, final String[] unused) {
     InputOutput.<String>println("initialization in progress ");
-    final Function1<NamedElement, Boolean> _function = (NamedElement e) -> {
-      return Boolean.valueOf((e instanceof Container));
-    };
-    final Function1<NamedElement, Container> _function_1 = (NamedElement e) -> {
-      return ((Container) e);
-    };
-    Iterable<Container> _map = IterableExtensions.<NamedElement, Container>map(IterableExtensions.<NamedElement>filter(_self.getElements(), _function), _function_1);
-    for (final Container c : _map) {
+    EList<Container> _containers = _self.getContainers();
+    for (final Container c : _containers) {
       {
         EList<Part> _parts = c.getParts();
         ArrayList<Part> _arrayList = new ArrayList<Part>(_parts);
