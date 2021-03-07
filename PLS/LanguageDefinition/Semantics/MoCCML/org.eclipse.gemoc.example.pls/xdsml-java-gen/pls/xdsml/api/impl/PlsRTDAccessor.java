@@ -9,11 +9,11 @@ import org.eclipse.gemoc.executionframework.engine.commons.K3DslHelper;
 
 
 public class PlsRTDAccessor {
-	public static java.util.ArrayList getCurrentParts(EObject eObject) {
-		return new java.util.ArrayList((java.util.ArrayList)  getAspectProperty(eObject, "org.eclipse.gemoc.example.pls.Pls", "org.eclipse.gemoc.example.pls.rewritingrules.ContainerAspect", "currentParts"));
+	public static org.eclipse.emf.common.util.BasicEList getcurrentParts(uk.ac.kcl.inf.modelling.pls.pls.Container eObject) {
+		return new org.eclipse.emf.common.util.BasicEList((org.eclipse.emf.common.util.BasicEList)  getAspectProperty(eObject, "org.eclipse.gemoc.example.pls.Pls", "org.eclipse.gemoc.example.pls.rewritingrules.ContainerAspect", "currentParts"));
 	}
-	public static boolean setcurrentParts(EObject eObject, java.util.ArrayList newValue) {
-		return setAspectProperty(eObject, "org.eclipse.gemoc.example.pls.Pls", "org.eclipse.gemoc.example.pls.rewritingrules.ContainerAspect", "currentParts", new java.util.ArrayList(newValue));
+	public static boolean setcurrentParts(EObject eObject, org.eclipse.emf.common.util.BasicEList newValue) {
+		return setAspectProperty(eObject, "org.eclipse.gemoc.example.pls.Pls", "org.eclipse.gemoc.example.pls.rewritingrules.ContainerAspect", "currentParts", new org.eclipse.emf.common.util.BasicEList(newValue));
 	}
 
 	public static Object getAspectProperty(EObject eObject, String languageName, String aspectName, String propertyName) {

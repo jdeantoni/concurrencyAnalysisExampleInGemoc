@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pls:ProductionLineModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pls="https://inf.kcl.ac.uk/models/pls">
-  <elements xsi:type="pls:GenHandle" name="handleGenerator" out="//@elements.3"/>
-  <elements xsi:type="pls:GenHead" name="headGenerator" out="//@elements.5"/>
-  <elements xsi:type="pls:Assembler" name="hammerAssembler" out="//@elements.7" in="//@elements.6"/>
-  <elements xsi:type="pls:Conveyor" name="conveyor1" parts="//@elements.4" tray="//@elements.6"/>
-  <elements xsi:type="pls:Handle"/>
-  <elements xsi:type="pls:Conveyor" name="conveyor2" tray="//@elements.6"/>
-  <elements xsi:type="pls:Tray"/>
-  <elements xsi:type="pls:Conveyor" name="conveyor3"/>
+  <machines xsi:type="pls:GenHandle" name="handleGen" out="//@containers.0"/>
+  <machines xsi:type="pls:GenHead" name="headGen" out="//@containers.1"/>
+  <machines xsi:type="pls:Assembler" name="assembly" out="//@containers.3" in="//@containers.2"/>
+  <containers xsi:type="pls:Conveyor" name="handleConveyor" tray="//@containers.2">
+    <parts xsi:type="pls:Handle"/>
+  </containers>
+  <containers xsi:type="pls:Conveyor" name="headConveyor" tray="//@containers.2"/>
+  <containers xsi:type="pls:Tray" name="tray"/>
+  <containers xsi:type="pls:Conveyor" name="hammerConveyor"/>
 </pls:ProductionLineModel>

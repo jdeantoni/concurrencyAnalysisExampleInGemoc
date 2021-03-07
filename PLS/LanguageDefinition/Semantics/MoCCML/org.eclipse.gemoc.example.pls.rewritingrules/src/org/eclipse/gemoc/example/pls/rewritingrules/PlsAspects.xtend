@@ -13,16 +13,15 @@ import uk.ac.kcl.inf.modelling.pls.pls.Head
 import fr.inria.diverse.k3.al.annotationprocessor.ReplaceAspectMethod
 import uk.ac.kcl.inf.modelling.pls.pls.Container
 import uk.ac.kcl.inf.modelling.pls.pls.Part
-import java.util.ArrayList
 
 import static extension org.eclipse.gemoc.example.pls.rewritingrules.ContainerAspect.*
 import fr.inria.diverse.k3.al.annotationprocessor.InitializeModel
-import fr.inria.diverse.k3.al.annotationprocessor.Containment
+import org.eclipse.emf.common.util.BasicEList
 
 @Aspect(className=Container)
 class ContainerAspect{
-	@Containment
-	public ArrayList<Part> currentParts  //Runtime state of the model
+	//should use @Composition but collection are not supported :-(
+	public BasicEList<Part> currentParts  //Runtime state of the model
 }
 
 
@@ -34,7 +33,7 @@ class ProductionLineModelAspect {
 	def void initialize(String[] unused){
 		println("initialization in progress ")
 		for(Container c : _self.containers){
-			c.currentParts = new ArrayList(c.parts)
+			c.currentParts = new BasicEList(c.parts)
 			c.parts.clear
 		}
 		println("initialization done")
@@ -47,9 +46,10 @@ class ConveyorAspect {
 	@Step
 	@ReplaceAspectMethod
 	def void moveAlong(){
-		var thePart = _self.currentParts.remove(0)		
 		if (_self.tray !== null){ //there is a tray to receive the part
-			_self.tray.currentParts.add(thePart);
+			_self.tray.currentParts.add(_self.currentParts.get(0));
+		}else{
+			_self.currentParts.remove(0)
 		}
 	}
 }

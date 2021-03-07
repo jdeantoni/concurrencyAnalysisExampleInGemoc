@@ -4,7 +4,7 @@ import fr.inria.diverse.k3.al.annotationprocessor.Aspect;
 import fr.inria.diverse.k3.al.annotationprocessor.InitializeModel;
 import fr.inria.diverse.k3.al.annotationprocessor.ReplaceAspectMethod;
 import fr.inria.diverse.k3.al.annotationprocessor.Step;
-import java.util.ArrayList;
+import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.gemoc.example.pls.rewritingrules.ContainerAspect;
 import org.eclipse.gemoc.example.pls.rewritingrules.ProductionLineModelAspectProductionLineModelAspectProperties;
@@ -45,8 +45,8 @@ public class ProductionLineModelAspect {
     for (final Container c : _containers) {
       {
         EList<Part> _parts = c.getParts();
-        ArrayList<Part> _arrayList = new ArrayList<Part>(_parts);
-        ContainerAspect.currentParts(c, _arrayList);
+        BasicEList<Part> _basicEList = new BasicEList<Part>(_parts);
+        ContainerAspect.currentParts(c, _basicEList);
         c.getParts().clear();
       }
     }

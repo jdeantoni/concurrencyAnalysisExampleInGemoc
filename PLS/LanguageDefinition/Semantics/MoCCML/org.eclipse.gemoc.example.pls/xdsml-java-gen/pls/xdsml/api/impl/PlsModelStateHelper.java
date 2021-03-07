@@ -54,7 +54,7 @@ public class PlsModelStateHelper implements IK3ModelStateHelper{
 				ElementState elemState = theFactory.createElementState();
 				elemState.setModelElement(elem);
 				res.getOwnedElementstates().add(elemState);
-				AttributeNameToValue n2v0 = new AttributeNameToValue("currentParts", PlsRTDAccessor.getCurrentParts((uk.ac.kcl.inf.modelling.pls.pls.Container)elem));
+				AttributeNameToValue n2v0 = new AttributeNameToValue("currentParts", PlsRTDAccessor.getcurrentParts((uk.ac.kcl.inf.modelling.pls.pls.Container)elem));
 				elemState.getSavedRTDs().add(n2v0);
 			}
 		}
@@ -75,7 +75,7 @@ public class PlsModelStateHelper implements IK3ModelStateHelper{
 					for(Class<?> c : n2v.value.getClass().getInterfaces()) {
 						
 						try {
-							m = PlsRTDAccessor.class.getMethod("set"+n2v.name, EObject.class, c);
+							m = PlsRTDAccessor.class.getMethod("set"+n2v.name, EObject.class, n2v.value.getClass().getInterfaces()[0]);
 							m.invoke(null, elemState.getModelElement(), n2v.value);
 						} catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e1) {
 						}
