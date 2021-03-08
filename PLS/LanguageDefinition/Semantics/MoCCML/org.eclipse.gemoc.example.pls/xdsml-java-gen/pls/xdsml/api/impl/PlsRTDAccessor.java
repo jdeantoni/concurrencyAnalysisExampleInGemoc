@@ -1,19 +1,29 @@
 /* GENERATED FILE, do not modify manually                                                    *
  * If you need to modify it, copy it first */
 package pls.xdsml.api.impl;
-import org.eclipse.emf.ecore.EObject;
 import java.lang.reflect.InvocationTargetException;
-import java.util.List;
 import java.lang.reflect.Method;
+import java.util.List;
+
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.util.BasicInternalEList;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.gemoc.executionframework.engine.commons.K3DslHelper;
+
+import uk.ac.kcl.inf.modelling.pls.pls.Part;
+import uk.ac.kcl.inf.modelling.pls.pls.impl.ContainerImpl;
 
 
 public class PlsRTDAccessor {
-	public static org.eclipse.emf.common.util.BasicEList getcurrentParts(uk.ac.kcl.inf.modelling.pls.pls.Container eObject) {
-		return new org.eclipse.emf.common.util.BasicEList((org.eclipse.emf.common.util.BasicEList)  getAspectProperty(eObject, "org.eclipse.gemoc.example.pls.Pls", "org.eclipse.gemoc.example.pls.rewritingrules.ContainerAspect", "currentParts"));
+	public static BasicInternalEList<Part> getcurrentParts(uk.ac.kcl.inf.modelling.pls.pls.Container eObject) {
+		return new BasicInternalEList<Part>(Part.class,(org.eclipse.emf.common.util.BasicEList)  getAspectProperty(eObject, "org.eclipse.gemoc.example.pls.Pls", "org.eclipse.gemoc.example.pls.rewritingrules.ContainerAspect", "currentParts"));
 	}
-	public static boolean setcurrentParts(EObject eObject, org.eclipse.emf.common.util.BasicEList newValue) {
-		return setAspectProperty(eObject, "org.eclipse.gemoc.example.pls.Pls", "org.eclipse.gemoc.example.pls.rewritingrules.ContainerAspect", "currentParts", new org.eclipse.emf.common.util.BasicEList(newValue));
+	public static boolean setcurrentParts(EObject eObject, BasicInternalEList newValue) {
+		EObjectContainmentEList<Part> temp = new EObjectContainmentEList<Part>(Part.class,(ContainerImpl)eObject, 88);
+		for(Object p : newValue) {
+			temp.basicAdd((Part)p, null);
+		}
+		return setAspectProperty(eObject, "org.eclipse.gemoc.example.pls.Pls", "org.eclipse.gemoc.example.pls.rewritingrules.ContainerAspect", "currentParts", temp);
 	}
 
 	public static Object getAspectProperty(EObject eObject, String languageName, String aspectName, String propertyName) {

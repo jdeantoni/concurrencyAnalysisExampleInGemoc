@@ -3,6 +3,8 @@ package uk.ac.kcl.inf.modelling.pls.design;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.util.BasicInternalEList;
 import org.eclipse.gemoc.executionframework.extensions.sirius.services.AbstractGemocAnimatorServices;
 import org.eclipse.sirius.business.api.session.Session;
 import org.eclipse.sirius.business.api.session.SessionListener;
@@ -32,14 +34,14 @@ public class Services extends AbstractGemocAnimatorServices  {
 		SessionManager.INSTANCE.addSessionsListener(sessionManagerListener);
 	}
     
-    public List<Part> getCurrentParts(Container self) {
-    	List<Part> res = null;
+    public EList<Part> getCurrentParts(Container self) {
+    	EList<Part> res = null;
     	try{
     		res = PlsRTDAccessor.getcurrentParts(self);
     	}catch(Exception e) {
-    		return new ArrayList<Part>();
+    		return new BasicInternalEList(Part.class);
     	}
-      return res != null ? res : new ArrayList<Part>();
+      return res != null ? res : new BasicInternalEList(Part.class);
     }
 
 

@@ -4,14 +4,16 @@ import fr.inria.diverse.k3.al.annotationprocessor.Aspect;
 import fr.inria.diverse.k3.al.annotationprocessor.InitializeModel;
 import fr.inria.diverse.k3.al.annotationprocessor.ReplaceAspectMethod;
 import fr.inria.diverse.k3.al.annotationprocessor.Step;
-import org.eclipse.emf.common.util.BasicEList;
+import java.util.ArrayList;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.gemoc.example.pls.rewritingrules.ContainerAspect;
 import org.eclipse.gemoc.example.pls.rewritingrules.ProductionLineModelAspectProductionLineModelAspectProperties;
 import org.eclipse.xtext.xbase.lib.InputOutput;
 import uk.ac.kcl.inf.modelling.pls.pls.Container;
 import uk.ac.kcl.inf.modelling.pls.pls.Part;
 import uk.ac.kcl.inf.modelling.pls.pls.ProductionLineModel;
+import uk.ac.kcl.inf.modelling.pls.pls.impl.ContainerImpl;
 
 @Aspect(className = ProductionLineModel.class)
 @SuppressWarnings("all")
@@ -44,10 +46,13 @@ public class ProductionLineModelAspect {
     EList<Container> _containers = _self.getContainers();
     for (final Container c : _containers) {
       {
+        EObjectContainmentEList<Part> _eObjectContainmentEList = new EObjectContainmentEList<Part>(Part.class, ((ContainerImpl) c), 88);
+        ContainerAspect.currentParts(c, _eObjectContainmentEList);
         EList<Part> _parts = c.getParts();
-        BasicEList<Part> _basicEList = new BasicEList<Part>(_parts);
-        ContainerAspect.currentParts(c, _basicEList);
-        c.getParts().clear();
+        ArrayList<Part> _arrayList = new ArrayList<Part>(_parts);
+        for (final Part p : _arrayList) {
+          ContainerAspect.currentParts(c).add(p);
+        }
       }
     }
     InputOutput.<String>println("initialization done");
